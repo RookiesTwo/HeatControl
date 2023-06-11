@@ -6,7 +6,7 @@
   "mixins": [
   ],
   "client": [
-    "ExampleMixin"
+    "com.rookiestwo.heatcontrol.mixin.ExampleMixin"
   ],
   "injectors": {
     "defaultRequire": 1
