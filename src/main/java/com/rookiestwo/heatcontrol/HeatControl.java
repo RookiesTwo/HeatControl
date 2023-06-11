@@ -18,7 +18,6 @@ public class HeatControl implements ModInitializer {
 	public static final Item thermometer=new Item(new FabricItemSettings());
 	@Override
 	public void onInitialize(){
-		Registry.register(Registry.ITEM,new Identifier("HeatControl","thermometer"),thermometer);
-
+		Registry.register(Registry.ITEM,new Identifier("heatcontrol","thermometer"),thermometer);
 	}
 }
