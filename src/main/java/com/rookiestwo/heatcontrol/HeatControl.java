@@ -15,7 +15,7 @@ public class HeatControl implements ModInitializer {
 	// That way, it's clear which mod wrote info, warnings, and errors.
 
 	public static final Logger LOGGER= LoggerFactory.getLogger("Heat_Control");
-	public static final Item thermometer=new Item(new FabricItemSettings());
+	public static final Thermometer thermometer=new Thermometer(new FabricItemSettings());
 	@Override
 	public void onInitialize(){
 		Registry.register(Registry.ITEM,new Identifier("heatcontrol","thermometer"),thermometer);
