@@ -1,4 +1,4 @@
-package com.rookiestwo.heatcontrol;
+package com.rookiestwo.heatcontrol.items;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -15,10 +15,10 @@ public class Thermometer extends Item {
     }
     Text message=new LiteralText("Thermometer");
     @Override
+    //手持温度计右键：在客户端的聊天栏显示温度数值
     public TypedActionResult<ItemStack>use(World world, PlayerEntity playerEntity, Hand hand){
         if(!world.isClient())
-            playerEntity.sendMessage(message,false);
-
+            playerEntity.sendMessage(message,true);
         return TypedActionResult.success(playerEntity.getStackInHand(hand));
     }
 }

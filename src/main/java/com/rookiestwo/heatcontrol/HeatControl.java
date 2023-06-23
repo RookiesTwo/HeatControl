@@ -1,8 +1,8 @@
 package com.rookiestwo.heatcontrol;
 
+import com.rookiestwo.heatcontrol.items.Thermometer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.slf4j.Logger;
@@ -18,6 +18,7 @@ public class HeatControl implements ModInitializer {
 	public static final Thermometer thermometer=new Thermometer(new FabricItemSettings());
 	@Override
 	public void onInitialize(){
+		//注册温度计
 		Registry.register(Registry.ITEM,new Identifier("heatcontrol","thermometer"),thermometer);
 	}
 }
