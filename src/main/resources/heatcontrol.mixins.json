@@ -6,11 +6,9 @@
   "mixins": [
   ],
   "client": [
-    "HeatControlMixin"
+    "HeatControllerMixin"
   ],
-  "server": [
-    "TemperatureTickServer"
-  ],
+  "server": [],
   "injectors": {
     "defaultRequire": 1
   }
