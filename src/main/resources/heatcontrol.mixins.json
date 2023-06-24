@@ -4,9 +4,11 @@
   "package": "com.rookiestwo.heatcontrol.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "HeatControllerMixin",
+    "TemperatureTickServer"
   ],
   "client": [
-    "HeatControllerMixin"
+
   ],
   "server": [],
   "injectors": {

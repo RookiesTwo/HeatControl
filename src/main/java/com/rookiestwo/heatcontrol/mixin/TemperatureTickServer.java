@@ -1,11 +1,15 @@
 package com.rookiestwo.heatcontrol.mixin;
 
+import com.rookiestwo.heatcontrol.HeatControl;
+import com.rookiestwo.heatcontrol.tools.HeatAttributeManager;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.world.World;
+
+import java.util.logging.Logger;
 
 @Mixin (PlayerEntity.class)
 public class TemperatureTickServer {
@@ -25,6 +29,7 @@ public class TemperatureTickServer {
         if(world.isClient()||player.isSpectator()){
             return;
         }
-
+        //HeatControl.LOGGER.info("设置！");
+        player.getAttributeInstance(HeatControl.env_temperature).setBaseValue(HeatAttributeManager.calculateHeatValue(player));
     }
 }
