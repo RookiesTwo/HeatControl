@@ -8,6 +8,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+import com.rookiestwo.heatcontrol.HeatControl;
 
 public class Thermometer extends Item {
     public Thermometer(Settings settings){
@@ -17,8 +18,10 @@ public class Thermometer extends Item {
     @Override
     //手持温度计右键：在客户端的聊天栏显示温度数值
     public TypedActionResult<ItemStack>use(World world, PlayerEntity playerEntity, Hand hand){
-        if(!world.isClient())
+        if(!world.isClient()){
+            message=new LiteralText(String.valueOf(playerEntity.getAttributes().getValue(HeatControl.env_temperature)));
             playerEntity.sendMessage(message,true);
+        }
         return TypedActionResult.success(playerEntity.getStackInHand(hand));
     }
 }

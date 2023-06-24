@@ -22,7 +22,7 @@ public class HeatControl implements ModInitializer {
 
 	public static final Logger LOGGER= LoggerFactory.getLogger("Heat_Control");
 	public static final Thermometer thermometer=new Thermometer(new FabricItemSettings());
-	public static final EntityAttribute env_temperature=Registry.register(Registry.ATTRIBUTE,new Identifier("heatcontrol","env_temperature"),HeatAttributeManager.HEAT_ATTRIBUTE);
+	public static final EntityAttribute env_temperature=Registry.register(Registry.ATTRIBUTE,new Identifier("heatcontrol","env_temperature"),HeatAttributeManager.ENV_ATTRIBUTE);
 
 
 	@Override
