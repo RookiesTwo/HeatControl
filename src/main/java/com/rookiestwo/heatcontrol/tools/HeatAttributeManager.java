@@ -17,6 +17,10 @@ public class HeatAttributeManager {
 
     public static double BaseEnvTemperature = 25.0;
 
+    private static double zeroStageTemperature = 19.7;
+
+    private static double bedRockStageTemperature = 42.0;
+
     public static final EntityAttribute ENV_ATTRIBUTE=new ClampedEntityAttribute(
             "attribute.heatcontrol.player.env_temperature",37.0,-273.16,2048.0
     ).setTracked(true);
@@ -45,15 +49,16 @@ public class HeatAttributeManager {
         }
         if(dim==World.OVERWORLD){
             if(attitude>=63) temp-=((attitude-63)/100)*9.5;
-            if(attitude<63&&attitude>0) temp-=(-(attitude-63)/100)*3.2;
-            if(attitude<=0) temp-=((attitude-63)/100)*35+24.066;
+            if(attitude<63&&attitude>0) temp=zeroStageTemperature+((temp-zeroStageTemperature)/63)*attitude;
+            if(attitude<=0) temp=-((bedRockStageTemperature-zeroStageTemperature)/64)*attitude+zeroStageTemperature;
         }
         //最后叠加天气
         if(dim==World.OVERWORLD) {
-            if(rain){
-                temp+=biome.getDownfall()*biome.getTemperature()*5;
+            if(rain&&attitude>=63){
+                temp-=biome.getDownfall()*biome.getTemperature()*5;
             }
         }
+        //叠加天空光照
         return temp;
     }
 }
