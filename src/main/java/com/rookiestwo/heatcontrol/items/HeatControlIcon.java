@@ -8,5 +8,4 @@ public class HeatControlIcon extends Item{
     public HeatControlIcon(Settings settings){
         super(settings);
     }
-    Text message=new LiteralText("heat_control_icon");
 }

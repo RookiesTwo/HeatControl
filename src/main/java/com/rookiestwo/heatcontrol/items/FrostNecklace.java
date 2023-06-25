@@ -1,4 +1,9 @@
 package com.rookiestwo.heatcontrol.items;
 
-public class FrostNecklace {
+import net.minecraft.item.Item;
+
+public class FrostNecklace extends Item {
+    public FrostNecklace(Settings settings){
+    super(settings);
+    }
 }

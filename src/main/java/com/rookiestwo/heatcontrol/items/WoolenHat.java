@@ -1,4 +1,7 @@
 package com.rookiestwo.heatcontrol.items;
 
-public class WoolenHat {
+import net.minecraft.item.Item;
+
+public class WoolenHat extends Item {
+    public WoolenHat(Settings settings){super(settings);}
 }

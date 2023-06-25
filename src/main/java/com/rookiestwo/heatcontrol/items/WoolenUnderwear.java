@@ -1,4 +1,7 @@
 package com.rookiestwo.heatcontrol.items;
 
-public class WoolenUnderwear {
+import net.minecraft.item.Item;
+
+public class WoolenUnderwear extends Item {
+    public WoolenUnderwear(Settings settings){super(settings);}
 }

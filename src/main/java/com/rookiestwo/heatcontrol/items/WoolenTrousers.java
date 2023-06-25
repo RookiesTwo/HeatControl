@@ -1,4 +1,7 @@
 package com.rookiestwo.heatcontrol.items;
 
-public class WoolenTrousers {
+import net.minecraft.item.Item;
+
+public class WoolenTrousers extends Item {
+    public WoolenTrousers(Settings settings){super(settings);}
 }
