@@ -30,9 +30,9 @@ jobs:
         
       - name: Cache Gradle dependencies
         uses: actions/cache@v3
-          with:
-            path: ${{ env.GRADLE_USER_HOME }}
-            key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
+        with:
+          path: ${{ env.GRADLE_USER_HOME }}
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
         
       - name: setup Java
         uses: actions/setup-java@v3
