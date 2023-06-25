@@ -29,8 +29,7 @@ jobs:
         run: chmod +x ./gradlew
         
       - name: Cache Gradle dependencies
-          id: cache-gradle
-          uses: actions/cache@v2
+          uses: actions/cache@v3
             with:
               path: ${{ env.GRADLE_USER_HOME }}
               key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
