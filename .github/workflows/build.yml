@@ -29,10 +29,14 @@ jobs:
         run: chmod +x ./gradlew
         
       - name: Cache Gradle dependencies
-        uses: actions/cache@v3
+      - uses: actions/cache@v3
         with:
-          path: ${{ env.GRADLE_USER_HOME }}
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
+         path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
         
       - name: setup Java
         uses: actions/setup-java@v3
