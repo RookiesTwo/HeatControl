@@ -9,17 +9,23 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import com.rookiestwo.heatcontrol.HeatControl;
+import java.text.DecimalFormat;
 
 public class Thermometer extends Item {
     public Thermometer(Settings settings){
         super(settings);
     }
-    Text message=new LiteralText("Thermometer");
+
+    private final static int decimalPlaces = 2;
+    // 要保留的小数位数
+    private final static DecimalFormat outputFormat = new DecimalFormat("#." + "0".repeat(decimalPlaces));
+    //保留小数格式化器
     @Override
     //手持温度计右键：在客户端的聊天栏显示温度数值
     public TypedActionResult<ItemStack>use(World world, PlayerEntity playerEntity, Hand hand){
         if(!world.isClient()){
-            message=new LiteralText(String.valueOf(playerEntity.getAttributes().getValue(HeatControl.env_temperature)));
+            //输出调制后的小数
+            Text message = new LiteralText(outputFormat.format(playerEntity.getAttributes().getValue(HeatControl.env_temperature)));
             playerEntity.sendMessage(message,true);
         }
         return TypedActionResult.success(playerEntity.getStackInHand(hand));
