@@ -25,5 +25,4 @@ public class HeatControllerMixin {
     private static void addAttribute(final CallbackInfoReturnable<DefaultAttributeContainer.Builder> info){
         info.getReturnValue().add(HeatControl.env_temperature);
     }
-
 }
