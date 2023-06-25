@@ -8,11 +8,8 @@ import com.rookiestwo.heatcontrol.tools.HeatAttributeManager;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
-<<<<<<< Updated upstream
 import net.fabricmc.fabric.api.item.v1.FabricItem;
-=======
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
->>>>>>> Stashed changes
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.item.ItemGroup;
