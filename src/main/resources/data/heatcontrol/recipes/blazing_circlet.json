@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WBW",
+    "A A",
+    "WCW"
+  ],
+  "key": {
+    "W": {
+      "item": "heatcontrol:blazing_vine"
+    },
+    "A": {
+      "item": "minecraft:magma_cream"
+    },
+    "B": {
+      "item": "minecraft:ghast_tear"
+    },
+    "C": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
+  "result": {
+    "item": "heatcontrol:blazing_circlet"
+  }
+}
