@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WAW",
+    "B B",
+    "WCW"
+  ],
+  "key": {
+    "W": {
+      "item": "heatcontrol:frost_sennit"
+    },
+    "A": {
+      "item": "minecraft:diamond"
+    },
+    "B": {
+      "item": "minecraft:nautilus_shell"
+    },
+    "C": {
+      "item": "minecraft:blue_ice"
+    }
+  },
+  "result": {
+    "item": "heatcontrol:frost_necklace"
+  }
+}

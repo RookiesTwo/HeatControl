@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WAW",
+    "WBW",
+    "WCW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:snowball"
+    },
+    "A": {
+      "item": "minecraft:glow_lichen"
+    },
+    "B": {
+      "item": "minecraft:sea_pickle"
+    },
+    "C": {
+      "item": "minecraft:kelp"
+    }
+  },
+  "result": {
+    "item": "heatcontrol:frost_sennit"
+  }
+}

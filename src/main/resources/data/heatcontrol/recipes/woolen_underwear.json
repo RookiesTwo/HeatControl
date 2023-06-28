@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "A A",
+    "ABA",
+    "BBB"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:string"
+    },
+    "B": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "result": {
+    "item": "heatcontrol:woolen_underwear"
+  }
+}
