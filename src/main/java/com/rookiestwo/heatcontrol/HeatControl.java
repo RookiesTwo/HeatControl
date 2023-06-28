@@ -41,7 +41,7 @@ public class HeatControl implements ModInitializer {
 				Iterable<ServerPlayerEntity> players = server.getPlayerManager().getPlayerList();
 				//遍历玩家并刷新玩家的环境温度值
 				for (ServerPlayerEntity player : players) {
-					player.getAttributeInstance(HeatControl.env_temperature).setBaseValue(HeatAttributeManager.calculateHeatValue(player));
+					player.getAttributeInstance(HeatControl.env_temperature).setBaseValue(HeatAttributeManager.calculateTemperatureValue(player));
 				}
 				//LOGGER.debug("Player Temperature set!");
 			}
