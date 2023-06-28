@@ -32,7 +32,7 @@ public class HeatControl implements ModInitializer {
 	@Override
 	public void onInitialize(){
 		//注册模组物品
-	HCItemRegistry.registryItem();
+		HCItemRegistry.registryItem();
 		//注册一个每10tick刷新一次玩家温度的定时事件
 		ServerTickEvents.START_SERVER_TICK.register(server -> {
 			tickCounter++;
@@ -43,7 +43,7 @@ public class HeatControl implements ModInitializer {
 				for (ServerPlayerEntity player : players) {
 					player.getAttributeInstance(HeatControl.env_temperature).setBaseValue(HeatAttributeManager.calculateHeatValue(player));
 				}
-				LOGGER.info("Player Temperature set!");
+				//LOGGER.debug("Player Temperature set!");
 			}
 		});
 

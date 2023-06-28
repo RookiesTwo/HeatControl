@@ -30,6 +30,5 @@ public class HCItemRegistry {
         Registry.register(Registry.ITEM,new Identifier("heatcontrol","woolen_socks"),woolen_socks);
         Registry.register(Registry.ITEM,new Identifier("heatcontrol","woolen_trousers"),woolen_trousers);
         Registry.register(Registry.ITEM,new Identifier("heatcontrol","woolen_underwear"),woolen_underwear);
-
     }
 }
