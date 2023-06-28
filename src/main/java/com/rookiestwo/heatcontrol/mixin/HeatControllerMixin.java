@@ -20,7 +20,6 @@ public class HeatControllerMixin {
     @Inject(
             method = "createLivingAttributes()Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;",
             at=@At("RETURN")
-
     )
     private static void addAttribute(final CallbackInfoReturnable<DefaultAttributeContainer.Builder> info){
         info.getReturnValue().add(HeatControl.env_temperature);
