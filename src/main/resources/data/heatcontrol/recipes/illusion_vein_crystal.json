@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WAW",
+    "BCB",
+    "WDW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:crying_obsidian"
+    },
+    "A": {
+      "item": "heatcontrol:blazing_necklace"
+    },
+    "B": {
+      "item": "minecraft:end_crystal"
+    },
+    "C": {
+      "item": "minecraft:nether_star"
+    },
+    "D": {
+      "item": "heatcontrol:frost_necklace"
+    }
+  },
+  "result": {
+    "item": "heatcontrol:illusion_vein_crystal"
+  }
+}

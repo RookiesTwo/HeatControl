@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " W ",
+    "WAW",
+    "BW "
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:glass"
+    },
+    "A": {
+      "item": "minecraft:lava_bucket"
+    },
+    "B": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "result": {
+    "item": "heatcontrol:thermometer"
+  }
+}
