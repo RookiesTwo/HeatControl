@@ -35,30 +35,43 @@ public class HeatAttributeManager {
         double attitude = player.getPos().getY();
         double temp = BaseEnvTemperature;
         int blockLightLevel=player.getWorld().getLightLevel(LightType.BLOCK,player.getBlockPos());
-        int skyLightLevel=player.getWorld().getLightLevel(LightType.SKY,player.getBlockPos())-player.getWorld().getAmbientDarkness();
-        //首先计算基础环境温度
+        int internalSkyLightLevel=player.getWorld().getLightLevel(LightType.SKY,player.getBlockPos())-player.getWorld().getAmbientDarkness();
+        int skyLightLevel=player.getWorld().getLightLevel(LightType.SKY,player.getBlockPos());
+
+        //首先计算基础环境温度(海平面高度)
         if(biome.getTemperature()>0)temp = 19.7*biome.getTemperature()+8;
         if(biome.getTemperature()<=0)temp= 26.25*biome.getTemperature()-9.25;
-        if(dim==World.OVERWORLD)if(temp>42)temp=42;
-        //叠加光照影响,根据生物群系的潮湿程度来影响昼夜温差,降雨量越大温度差越小
+
+        //主世界环境温度
         if(dim==World.OVERWORLD){
-            temp-=(10-skyLightLevel)*
+            if(temp>42)temp=42;
+
+            //计算地表温度
+            double surfaceEnvTemperature=temp;
+
+            //叠加昼夜光照影响,根据生物群系的潮湿程度来影响昼夜温差,降雨量越大温度差越小
+            surfaceEnvTemperature-=(10-internalSkyLightLevel)*
                     ((2.5/*此参数为一个影响潮湿与干燥差距大小的参数*/-biome.getDownfall())*5/*此参数为直接影响昼夜温度的参数*/)/12;
+            if(surfaceEnvTemperature>42)surfaceEnvTemperature=42;
+
+            //海拔
+            surfaceEnvTemperature-=((attitude-63)/100)*9.5;
+
+            //叠加天气
+            if(rain)surfaceEnvTemperature-=biome.getDownfall()*biome.getTemperature()*7;
+
+            //计算地下温度
+            double underEnvTemperature=temp;
+            if(attitude>63)underEnvTemperature-=((attitude-63)/100)*14.5;
+            if(attitude>0&&attitude<=63) underEnvTemperature=zeroStageTemperature+((underEnvTemperature-zeroStageTemperature)/63)*attitude;
+            if(attitude<=0) underEnvTemperature=-((bedRockStageTemperature-zeroStageTemperature)/64)*attitude+zeroStageTemperature;
+
+            //根据skyLightLevel等级来加权平均以上两个温度
+            temp=((15-skyLightLevel)*underEnvTemperature+skyLightLevel*surfaceEnvTemperature)/15;
         }
-        //再叠加海拔的偏移,末地不叠加
+        //地狱海拔变化（微小）
         if(dim==World.NETHER){
             temp-=(attitude/100)*0.95;
-        }
-        if(dim==World.OVERWORLD){
-            if(attitude>=63) temp-=((attitude-63)/100)*9.5;
-            if(attitude<63&&attitude>0) temp=zeroStageTemperature+((temp-zeroStageTemperature)/63)*attitude;
-            if(attitude<=0) temp=-((bedRockStageTemperature-zeroStageTemperature)/64)*attitude+zeroStageTemperature;
-        }
-        //叠加天气
-        if(dim==World.OVERWORLD) {
-            if(rain&&attitude>=63){
-                temp-=biome.getDownfall()*biome.getTemperature()*5;
-            }
         }
         return temp;
     }
