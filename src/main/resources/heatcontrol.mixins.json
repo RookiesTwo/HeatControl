@@ -7,7 +7,7 @@
     "HeatControllerMixin"
   ],
   "client": [
-
+    "TemHUDMixin"
   ],
   "server": [],
   "injectors": {

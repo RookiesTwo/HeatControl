@@ -1,0 +1,10 @@
+{
+  "textures": {
+    "particle": "textures/gui/thermometer_vertical.png",
+    "gui": {
+      "id": "textures/gui/thermometer_vertical.png",
+      "width": 256,
+      "height": 256
+    }
+  }
+}
