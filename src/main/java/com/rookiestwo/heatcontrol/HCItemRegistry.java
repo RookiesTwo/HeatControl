@@ -2,6 +2,7 @@ package com.rookiestwo.heatcontrol;
 
 import com.rookiestwo.heatcontrol.items.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.loader.impl.gui.FabricGuiEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -17,7 +18,6 @@ public class HCItemRegistry {
     public static final WoolenSocks woolen_socks=new WoolenSocks(new FabricItemSettings().group(HeatControl.HC_ITEM_GROUP).maxCount(1));
     public static final WoolenTrousers woolen_trousers=new WoolenTrousers(new FabricItemSettings().group(HeatControl.HC_ITEM_GROUP).maxCount(1));
     public static final WoolenUnderwear woolen_underwear=new WoolenUnderwear(new FabricItemSettings().group(HeatControl.HC_ITEM_GROUP).maxCount(1));
-
     public static void registryItem(){
         Registry.register(Registry.ITEM,new Identifier("heatcontrol","blazing_necklace"),blazing_necklace);
         Registry.register(Registry.ITEM,new Identifier("heatcontrol","blazing_vine"),blazing_vine);
