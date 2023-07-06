@@ -24,7 +24,8 @@ public class HeatControl implements ModInitializer {
 	);
 	public static final Logger LOGGER= LoggerFactory.getLogger("Heat_Control");
 	public static final EntityAttribute env_temperature=Registry.register(Registry.ATTRIBUTE,new Identifier("heatcontrol","env_temperature"),HeatAttributeManager.ENV_ATTRIBUTE);
-
+	public static final EntityAttribute min_temperature=Registry.register(Registry.ATTRIBUTE,new Identifier("heatcontrol","min_temperature"),HeatAttributeManager.MIN_TEMPERATURE);
+	public static final EntityAttribute max_temperature=Registry.register(Registry.ATTRIBUTE,new Identifier("heatcontrol","max_temperature"),HeatAttributeManager.MAX_TEMPERATURE);
 	//tick的计数器以及几个tick执行一次
 	private int tickCounter=0;
 	private final int ticksPerTask=10;
