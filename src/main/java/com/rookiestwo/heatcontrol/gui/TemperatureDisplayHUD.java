@@ -7,5 +7,5 @@ import net.minecraft.client.gui.hud.InGameHud;
 
 @Environment(EnvType.CLIENT)
 public class TemperatureDisplayHUD extends DrawableHelper {
-
+    
 }
