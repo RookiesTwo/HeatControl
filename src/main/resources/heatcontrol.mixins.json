@@ -7,7 +7,7 @@
     "HeatControlMixin"
   ],
   "client": [
-    "HeatControlCientMixin"
+
   ],
   "server": [],
   "injectors": {
