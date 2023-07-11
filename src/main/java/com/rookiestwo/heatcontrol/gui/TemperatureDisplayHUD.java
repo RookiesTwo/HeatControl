@@ -64,7 +64,9 @@ public class TemperatureDisplayHUD implements HudRenderCallback {
         }
         if((int)currentY>(int)targetY)currentY-=CursorMovingSpeedPerTick;
         if((int)currentY<(int)targetY)currentY+=CursorMovingSpeedPerTick;
+        //渲染温度条
         DrawableHelper.drawTexture(Matrixstack,x,y,0,0,5,38,256,256);
+        //渲染温度指针
         DrawableHelper.drawTexture(Matrixstack,x-1,y+(int)currentY,5,0,7,3,256,256);
         //HeatControl.LOGGER.info("HUD Draw!");
     }
