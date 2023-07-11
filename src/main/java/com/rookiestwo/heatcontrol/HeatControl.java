@@ -21,6 +21,8 @@ public class HeatControl implements ModInitializer {
 	public static final String MOD_ID="heatcontrol";
 	public static final Logger LOGGER= LoggerFactory.getLogger("Heat_Control");
 
+
+
 	//创建并实例化模组物品组和物品
 	public static final ItemGroup HC_ITEM_GROUP= FabricItemGroupBuilder.build(
 			new Identifier("heatcontrol","hc_item_group"),

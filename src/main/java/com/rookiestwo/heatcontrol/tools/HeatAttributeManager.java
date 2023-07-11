@@ -14,7 +14,7 @@ public class HeatAttributeManager {
 
     private static double zeroYLayerTemperature = 19.7;
 
-    private static double bedRockLayerTemperature = 42.0;
+    private static double bedRockLayerTemperature = 45.0;
 
     private static double netherBaseTemperature = 50.0;
 

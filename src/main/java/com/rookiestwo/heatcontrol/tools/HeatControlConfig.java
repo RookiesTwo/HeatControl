@@ -8,7 +8,7 @@ public class HeatControlConfig {
     @SerializedName("Base_Environment_Temperature")
     public double baseEnvironmentTemperature = 25.0;
     @SerializedName("Bedrock_Layer_Underground_Temperature")
-    public double bedrockLayerTemperature=42.0;
+    public double bedrockLayerTemperature=45.0;
     @SerializedName("Underground_Temperature_When_Y_Equals_Zero")
     public double zeroYLayerTemperature=19.7;
     @SerializedName("Nether_Base_Environment_Temperature")
