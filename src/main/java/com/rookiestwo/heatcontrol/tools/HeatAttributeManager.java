@@ -12,12 +12,14 @@ public class HeatAttributeManager {
 
     public static double BaseEnvTemperature = 25.0;
 
-    private static double zeroStageTemperature = 19.7;
+    private static double zeroYLayerTemperature = 19.7;
 
-    private static double bedRockStageTemperature = 42.0;
+    private static double bedRockLayerTemperature = 42.0;
+
+    private static double netherBaseTemperature = 50.0;
 
     public static final EntityAttribute ENV_ATTRIBUTE=new ClampedEntityAttribute(
-            "attribute.heatcontrol.player.env_temperature",37.0,-273.16,2048.0
+            "attribute.heatcontrol.player.env_temperature",BaseEnvTemperature,-273.16,2048.0
     ).setTracked(true);
     public static final EntityAttribute MAX_TEMPERATURE=new ClampedEntityAttribute(
             "attribute.heatcontrol.player.max_temperature",40.0,-273.16,2048.0
@@ -63,14 +65,15 @@ public class HeatAttributeManager {
             //计算地下温度
             double underEnvTemperature=temp;
             if(attitude>63)underEnvTemperature-=((attitude-63)/100)*14.5;
-            if(attitude>0&&attitude<=63) underEnvTemperature=zeroStageTemperature+((underEnvTemperature-zeroStageTemperature)/63)*attitude;
-            if(attitude<=0) underEnvTemperature=-((bedRockStageTemperature-zeroStageTemperature)/64)*attitude+zeroStageTemperature;
+            if(attitude>0&&attitude<=63) underEnvTemperature= zeroYLayerTemperature +((underEnvTemperature- zeroYLayerTemperature)/63)*attitude;
+            if(attitude<=0) underEnvTemperature=-((bedRockLayerTemperature - zeroYLayerTemperature)/64)*attitude+ zeroYLayerTemperature;
 
             //根据skyLightLevel等级来加权平均以上两个温度
             temp=((15-skyLightLevel)*underEnvTemperature+skyLightLevel*surfaceEnvTemperature)/15;
         }
-        //地狱海拔变化（微小）
+        //地狱环境温度
         if(dim==World.NETHER){
+            temp=netherBaseTemperature;
             temp-=(attitude/100)*0.95;
         }
         return temp;
