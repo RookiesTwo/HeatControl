@@ -25,7 +25,7 @@ public class Thermometer extends Item {
     public TypedActionResult<ItemStack>use(World world, PlayerEntity playerEntity, Hand hand){
         if(!world.isClient()){
             //输出调制后的小数
-            Text message = new LiteralText(String.format("%.2f",playerEntity.getAttributes().getValue(HeatControl.env_temperature)));
+            Text message = new LiteralText(String.format("%.1f",playerEntity.getAttributes().getValue(HeatControl.env_temperature))+" °C");
             playerEntity.sendMessage(message,true);
         }
         return TypedActionResult.success(playerEntity.getStackInHand(hand));
