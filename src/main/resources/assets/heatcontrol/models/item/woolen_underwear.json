@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "heatcontrol:item/underwear"
+    "layer0": "heatcontrol:item/woolen_underwear"
   }
 }

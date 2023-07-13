@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "heatcontrol:item/ultimate_env_solution"
+    "layer0": "heatcontrol:item/illusion_vein_crystal"
   }
 }
