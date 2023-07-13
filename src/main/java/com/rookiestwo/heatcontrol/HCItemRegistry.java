@@ -19,16 +19,16 @@ public class HCItemRegistry {
     public static final WoolenTrousers woolen_trousers=new WoolenTrousers(new FabricItemSettings().group(HeatControl.HC_ITEM_GROUP).maxCount(1));
     public static final WoolenUnderwear woolen_underwear=new WoolenUnderwear(new FabricItemSettings().group(HeatControl.HC_ITEM_GROUP).maxCount(1));
     public static void registryItem(){
-        Registry.register(Registry.ITEM,new Identifier("heatcontrol","blazing_necklace"),blazing_necklace);
-        Registry.register(Registry.ITEM,new Identifier("heatcontrol","blazing_vine"),blazing_vine);
-        Registry.register(Registry.ITEM,new Identifier("heatcontrol","frost_sennit"),frost_sennit);
-        Registry.register(Registry.ITEM,new Identifier("heatcontrol","frost_necklace"),frost_necklace);
         Registry.register(Registry.ITEM,new Identifier("heatcontrol","heat_control_icon"),heat_control_icon);
         Registry.register(Registry.ITEM,new Identifier("heatcontrol","thermometer"),thermometer);
+        Registry.register(Registry.ITEM,new Identifier("heatcontrol","blazing_vine"),blazing_vine);
+        Registry.register(Registry.ITEM,new Identifier("heatcontrol","frost_sennit"),frost_sennit);
+        Registry.register(Registry.ITEM,new Identifier("heatcontrol","blazing_necklace"),blazing_necklace);
+        Registry.register(Registry.ITEM,new Identifier("heatcontrol","frost_necklace"),frost_necklace);
         Registry.register(Registry.ITEM,new Identifier("heatcontrol","illusion_vein_crystal"),illusion_vein_crystal);
         Registry.register(Registry.ITEM,new Identifier("heatcontrol","woolen_hat"),woolen_hat);
-        Registry.register(Registry.ITEM,new Identifier("heatcontrol","woolen_socks"),woolen_socks);
-        Registry.register(Registry.ITEM,new Identifier("heatcontrol","woolen_trousers"),woolen_trousers);
         Registry.register(Registry.ITEM,new Identifier("heatcontrol","woolen_underwear"),woolen_underwear);
+        Registry.register(Registry.ITEM,new Identifier("heatcontrol","woolen_trousers"),woolen_trousers);
+        Registry.register(Registry.ITEM,new Identifier("heatcontrol","woolen_socks"),woolen_socks);
     }
 }
