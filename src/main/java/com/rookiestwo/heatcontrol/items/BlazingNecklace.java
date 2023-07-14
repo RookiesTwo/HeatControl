@@ -9,18 +9,23 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 
 import net.minecraft.item.ItemStack;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.UUID;
 
 public class BlazingNecklace extends TrinketItem {
+
     public BlazingNecklace(Settings settings){
         super(settings);
     }
-    public Multimap<EntityAttribute, EntityAttributeModifier> getModifier(
+    public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(
             ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){
         var modifiers=super.getModifiers(stack,slot,entity,uuid);
-        modifiers.put(HeatAttributeManager.MAX_TEMPERATURE, new EntityAttributeModifier(uuid,"heatcontrol:max_temperature",-10.0,EntityAttributeModifier.Operation.ADDITION));
-        modifiers.put(HeatAttributeManager.MIN_TEMPERATURE, new EntityAttributeModifier(uuid,"heatcontrol:min_temperature",-30.0,EntityAttributeModifier.Operation.ADDITION));
+        modifiers.put(
+                HeatAttributeManager.MAX_TEMPERATURE, new EntityAttributeModifier(uuid,"heatcontrol:max_temperature",-10.0,EntityAttributeModifier.Operation.ADDITION));
+        modifiers.put(
+                HeatAttributeManager.MIN_TEMPERATURE, new EntityAttributeModifier(uuid,"heatcontrol:min_temperature",-30.0,EntityAttributeModifier.Operation.ADDITION));
         return modifiers;
     }
 }

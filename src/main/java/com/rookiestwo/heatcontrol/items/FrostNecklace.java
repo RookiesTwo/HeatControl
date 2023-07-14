@@ -15,7 +15,7 @@ public class FrostNecklace extends TrinketItem {
     public FrostNecklace(Settings settings){
     super(settings);
     }
-    public Multimap<EntityAttribute, EntityAttributeModifier> getModifier(
+    public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(
             ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){
         var modifiers=super.getModifiers(stack,slot,entity,uuid);
         modifiers.put(
