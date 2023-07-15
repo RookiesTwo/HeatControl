@@ -47,15 +47,15 @@ public class HeatControl implements ModInitializer {
 		ServerTickEvents.START_SERVER_TICK.register(server -> {
 			tickCounter++;
 			if(tickCounter>=ticksPerTask){
-				tickCounter=0;
-				Iterable<ServerPlayerEntity> players = server.getPlayerManager().getPlayerList();
-				//遍历玩家并刷新玩家的环境温度值
-				for (ServerPlayerEntity player : players) {
-					player.getAttributeInstance(HeatControl.env_temperature).setBaseValue(HeatAttributeManager.calculateTemperatureValue(player));
-
-					HeatAttributeManager.applyBlockLightEffect(player);
+				tickCounter = 0;
+				if (server.getCurrentPlayerCount() > 0) {
+					Iterable<ServerPlayerEntity> players = server.getPlayerManager().getPlayerList();
+					//遍历玩家并刷新玩家的环境温度值
+					for (ServerPlayerEntity player : players) {
+						HeatAttributeManager.applyEnvTemperature(player);
+						HeatAttributeManager.applyBlockLightEffect(player);
+					}
 				}
-				//LOGGER.debug("Player Temperature set!");
 			}
 		});
 

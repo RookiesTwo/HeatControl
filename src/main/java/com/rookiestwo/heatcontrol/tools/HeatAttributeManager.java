@@ -1,5 +1,6 @@
 package com.rookiestwo.heatcontrol.tools;
 
+import com.rookiestwo.heatcontrol.HeatControl;
 import net.minecraft.entity.attribute.ClampedEntityAttribute;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,35 +11,58 @@ import net.minecraft.world.biome.Biome;
 
 public class HeatAttributeManager {
 
-    public static double BaseEnvTemperature = 25.0;
+    private static double BaseEnvTemperature = 25.0;
 
     private static double zeroYLayerTemperature = 19.7;
 
     private static double bedRockLayerTemperature = 45.0;
 
-    private static double netherBaseTemperature = 50.0;
+    private static double netherBaseTemperature = 52.3;
 
-    public static final EntityAttribute ENV_ATTRIBUTE=new ClampedEntityAttribute(
-            "attribute.heatcontrol.player.env_temperature",BaseEnvTemperature,-273.16,2048.0
+    //必须为负数
+    private static double perBlockLightTemperature_Max = -0.6;
+
+    //必须为正数
+    private static double perBlockLightTemperature_Min = 2.3;
+
+    public static final EntityAttribute ENV_ATTRIBUTE = new ClampedEntityAttribute(
+            "attribute.heatcontrol.player.env_temperature", BaseEnvTemperature, -273.16, 2048.0
     ).setTracked(true);
-    public static final EntityAttribute MAX_TEMPERATURE=new ClampedEntityAttribute(
-            "attribute.heatcontrol.player.max_temperature",40.0,-273.16,2048.0
+    public static final EntityAttribute MAX_TEMPERATURE = new ClampedEntityAttribute(
+            "attribute.heatcontrol.player.max_temperature", 40.0, -273.16, 2048.0
     ).setTracked(true);
-    public static final EntityAttribute MIN_TEMPERATURE=new ClampedEntityAttribute(
-            "attribute.heatcontrol.player.min_temperature",16.0,-273.16,2048.0
+    public static final EntityAttribute MIN_TEMPERATURE = new ClampedEntityAttribute(
+            "attribute.heatcontrol.player.min_temperature", 16.0, -273.16, 2048.0
     ).setTracked(true);
+
+    //应用环境温度
+    public static void applyEnvTemperature(PlayerEntity player) {
+        player.getAttributeInstance(HeatControl.env_temperature).setBaseValue(calculateTemperatureValue(player));
+    }
+
+    //应用方块光照对于温度忍耐限度的影响
+    public static void applyBlockLightEffect(PlayerEntity player) {
+        int blockLightLevel = player.getWorld().getLightLevel(LightType.BLOCK, player.getBlockPos());//方块光照等级
+
+        player.getAttributeInstance(HeatControl.max_temperature).setBaseValue(
+                player.getAttributeBaseValue(HeatControl.max_temperature) + blockLightLevel * perBlockLightTemperature_Max
+        );
+
+        player.getAttributeInstance(HeatControl.min_temperature).setBaseValue(
+                player.getAttributeBaseValue(HeatControl.min_temperature) + blockLightLevel * perBlockLightTemperature_Min
+        );
+    }
 
     //计算温度值
-    public static double calculateTemperatureValue(PlayerEntity player){
+    private static double calculateTemperatureValue(PlayerEntity player) {
         //获取各个参数
-        RegistryKey<World> dim =player.getWorld().getRegistryKey();
+        RegistryKey<World> dim = player.getWorld().getRegistryKey();
         Biome biome = player.getWorld().getBiome(player.getBlockPos()).value();
         boolean rain = player.getWorld().isRaining();
         double attitude = player.getPos().getY();
         double temp = BaseEnvTemperature;
-        //int blockLightLevel=player.getWorld().getLightLevel(LightType.BLOCK,player.getBlockPos());
-        int internalSkyLightLevel=player.getWorld().getLightLevel(LightType.SKY,player.getBlockPos())-player.getWorld().getAmbientDarkness();
-        int skyLightLevel=player.getWorld().getLightLevel(LightType.SKY,player.getBlockPos());
+        int internalSkyLightLevel = player.getWorld().getLightLevel(LightType.SKY, player.getBlockPos()) - player.getWorld().getAmbientDarkness();
+        int skyLightLevel = player.getWorld().getLightLevel(LightType.SKY, player.getBlockPos());
 
         //首先计算基础环境温度(海平面高度)
         if(biome.getTemperature()>0)temp = 19.7*biome.getTemperature()+8;
@@ -84,11 +108,7 @@ public class HeatAttributeManager {
             temp = netherBaseTemperature;
             temp -= (attitude / 100) * 0.95;
         }
+
         return temp;
-    }
-
-    //计算方块光照对于温度忍耐限度的影响
-    public static void applyBlockLightEffect(PlayerEntity player) {
-
     }
 }
