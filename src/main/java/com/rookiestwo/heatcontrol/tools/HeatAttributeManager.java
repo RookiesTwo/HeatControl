@@ -48,17 +48,13 @@ public class HeatAttributeManager {
     //应用方块光照对于温度忍耐限度的影响
     public static void applyBlockLightEffect(PlayerEntity player) {
         int blockLightLevel = player.getWorld().getLightLevel(LightType.BLOCK, player.getBlockPos());//方块光照等级
-        int internalSkyLightLevel = player.getWorld().getLightLevel(LightType.SKY, player.getBlockPos()) - player.getWorld().getAmbientDarkness();
 
-        if (internalSkyLightLevel < blockLightLevel) {
-            player.getAttributeInstance(HeatControl.max_temperature).setBaseValue(
-                    BaseMaxTemperature + blockLightLevel * perBlockLightTemperature_Max
-            );
-
-            player.getAttributeInstance(HeatControl.min_temperature).setBaseValue(
-                    BaseMinTemperature + blockLightLevel * perBlockLightTemperature_Min
-            );
-        }
+        player.getAttributeInstance(HeatControl.max_temperature).setBaseValue(
+                BaseMaxTemperature + blockLightLevel * perBlockLightTemperature_Max
+        );
+        player.getAttributeInstance(HeatControl.min_temperature).setBaseValue(
+                BaseMinTemperature + blockLightLevel * perBlockLightTemperature_Min
+        );
     }
 
     //计算温度值
