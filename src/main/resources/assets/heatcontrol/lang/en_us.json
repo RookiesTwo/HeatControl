@@ -1,16 +1,18 @@
 {
-  "itemGroup.heatcontrol.hc_item_group": "Heat Control",
-
-  "item.heatcontrol.blazing_vine": "Blazing Vine",
+  "attribute.heatcontrol.env_temperature": "Environment Temperature(°C)",
+  "attribute.heatcontrol.max_temperature": "Maximum Tolerance Temperature(°C)",
+  "attribute.heatcontrol.min_temperature": "Minimum Tolerance Temperature(°C)",
+  "item.heatcontrol.": "",
   "item.heatcontrol.blazing_necklace": "Blazing Necklace",
-  "item.heatcontrol.frost_sennit":"Frost Chain",
+  "item.heatcontrol.blazing_vine": "Blazing Vine",
   "item.heatcontrol.frost_necklace": "Frost Necklace",
+  "item.heatcontrol.frost_sennit": "Frost Chain",
+  "item.heatcontrol.heat_control_icon": "Heat Control Icon",
   "item.heatcontrol.illusion_vein_crystal": "Illusion Vein Crystal",
+  "item.heatcontrol.thermometer": "Thermometer",
   "item.heatcontrol.woolen_hat": "Woolen Hat",
   "item.heatcontrol.woolen_socks": "Woolen Socks",
   "item.heatcontrol.woolen_trousers": "Woolen Trousers",
   "item.heatcontrol.woolen_underwear": "Woolen Underwear",
-  "item.heatcontrol.": "",
-  "item.heatcontrol.heat_control_icon": "Heat Control Icon",
-  "item.heatcontrol.thermometer": "Thermometer"
+  "itemGroup.heatcontrol.hc_item_group": "Heat Control"
 }

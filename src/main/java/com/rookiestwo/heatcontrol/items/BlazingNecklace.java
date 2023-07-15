@@ -2,6 +2,7 @@ package com.rookiestwo.heatcontrol.items;
 
 import com.google.common.collect.Multimap;
 import com.rookiestwo.heatcontrol.tools.HeatAttributeManager;
+import com.rookiestwo.heatcontrol.tools.HeatControlConfig;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import net.minecraft.entity.LivingEntity;
@@ -9,8 +10,6 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 
 import net.minecraft.item.ItemStack;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.UUID;
 
@@ -23,9 +22,7 @@ public class BlazingNecklace extends TrinketItem {
             ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){
         var modifiers=super.getModifiers(stack,slot,entity,uuid);
         modifiers.put(
-                HeatAttributeManager.MAX_TEMPERATURE, new EntityAttributeModifier(uuid,"heatcontrol:max_temperature",-10.0,EntityAttributeModifier.Operation.ADDITION));
-        modifiers.put(
-                HeatAttributeManager.MIN_TEMPERATURE, new EntityAttributeModifier(uuid,"heatcontrol:min_temperature",-30.0,EntityAttributeModifier.Operation.ADDITION));
+                HeatAttributeManager.MIN_TEMPERATURE, new EntityAttributeModifier(uuid,"heatcontrol:min_temperature",-(273.16+16),EntityAttributeModifier.Operation.ADDITION));
         return modifiers;
     }
 }

@@ -17,9 +17,9 @@ public class WoolenTrousers extends TrinketItem {
             ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){
         var modifiers=super.getModifiers(stack,slot,entity,uuid);
         modifiers.put(
-                HeatAttributeManager.MAX_TEMPERATURE, new EntityAttributeModifier(uuid,"heatcontrol:max_temperature",-4.0,EntityAttributeModifier.Operation.ADDITION));
+                HeatAttributeManager.MAX_TEMPERATURE, new EntityAttributeModifier(uuid,"heatcontrol:max_temperature",-3.0,EntityAttributeModifier.Operation.ADDITION));
         modifiers.put(
-                HeatAttributeManager.MIN_TEMPERATURE, new EntityAttributeModifier(uuid,"heatcontrol:min_temperature",-7.0,EntityAttributeModifier.Operation.ADDITION));
+                HeatAttributeManager.MIN_TEMPERATURE, new EntityAttributeModifier(uuid,"heatcontrol:min_temperature",-10.0,EntityAttributeModifier.Operation.ADDITION));
         return modifiers;
     }
 }

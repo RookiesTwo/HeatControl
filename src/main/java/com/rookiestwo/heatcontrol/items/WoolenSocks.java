@@ -19,7 +19,7 @@ public class WoolenSocks extends TrinketItem {
         modifiers.put(
                 HeatAttributeManager.MAX_TEMPERATURE, new EntityAttributeModifier(uuid,"heatcontrol:max_temperature",-3.0,EntityAttributeModifier.Operation.ADDITION));
         modifiers.put(
-                HeatAttributeManager.MIN_TEMPERATURE, new EntityAttributeModifier(uuid,"heatcontrol:min_temperature",-5.0,EntityAttributeModifier.Operation.ADDITION));
+                HeatAttributeManager.MIN_TEMPERATURE, new EntityAttributeModifier(uuid,"heatcontrol:min_temperature",-10.0,EntityAttributeModifier.Operation.ADDITION));
         return modifiers;
     }
 }
