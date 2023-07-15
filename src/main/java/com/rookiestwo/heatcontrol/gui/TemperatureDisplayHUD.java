@@ -7,7 +7,6 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
@@ -24,25 +23,28 @@ public class TemperatureDisplayHUD implements HudRenderCallback {
 
     //private static double CursorMovingSpeedPerTick=0.333;
 
-    private static double currentY=0;
+    private static double currentY = 0;
 
-    private static float targetFreshTime= 0.5F;
+    private static float targetFreshTime = 0.5F;
 
-    private static float pointerFreshTime=0.3F;
+    private static float pointerFreshTime = 0.8F;
 
-//    public void setTargetY(double input){
+    //    public void setTargetY(double input){
 //        targetY=input;
 //    }
+    private static int overHeatBarLength = 12;
+
+    private static int properHeatBarLength = 14;
 
     @Override
-    public void onHudRender(MatrixStack Matrixstack, float tickDelta){
+    public void onHudRender(MatrixStack Matrixstack, float tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
         //若为创造或观察者就不渲染
         if (client.player != null && (client.player.isCreative() || client.player.isSpectator())) {
             return;
         }
 
-        int width=client.getWindow().getScaledWidth();
+        int width = client.getWindow().getScaledWidth();
         int height=client.getWindow().getScaledHeight();
 
         int x=width/2+93;
@@ -54,17 +56,26 @@ public class TemperatureDisplayHUD implements HudRenderCallback {
 
         //固定时间间隔刷新一次计量表指针的目标值
         targetFreshTimer+=tickDelta;
-        if(targetFreshTimer>targetFreshTime){
-            double max_temp=client.player.getAttributes().getValue(HeatControl.max_temperature);
-            double min_temp=client.player.getAttributes().getValue(HeatControl.min_temperature);
-            double env_temp=client.player.getAttributes().getValue(HeatControl.env_temperature);
+        if(targetFreshTimer>targetFreshTime) {
+            double max_temp = client.player.getAttributes().getValue(HeatControl.max_temperature);
+            double min_temp = client.player.getAttributes().getValue(HeatControl.min_temperature);
+            double env_temp = client.player.getAttributes().getValue(HeatControl.env_temperature);
 
-            targetY=(14/(min_temp-max_temp))*(env_temp-max_temp)+12-1;
+            if (env_temp <= max_temp && env_temp >= min_temp) {
+                targetY = (properHeatBarLength / (min_temp - max_temp)) * (env_temp - max_temp) + overHeatBarLength - 1;
+            }
+            //为了让提示更明显 超过适合温度范围的显示分开处理
+            if (env_temp > max_temp) {
+                targetY = overHeatBarLength - (int) ((env_temp - max_temp) * 1.5) - 1;
+            }
+            if (env_temp < min_temp) {
+                targetY = overHeatBarLength + properHeatBarLength + (int) ((min_temp - env_temp) * 1.5) - 1;
+            }
 
-            if(targetY<2)targetY=2;
-            if(targetY>33)targetY=33;
+            if (targetY < 2) targetY = 2;
+            if (targetY > 33) targetY = 33;
 
-            targetFreshTimer=0;
+            targetFreshTimer = 0;
         }
 
         //固定时间间隔将HUD量表指针移动一个像素点（指针移动速度控制）

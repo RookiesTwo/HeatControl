@@ -60,16 +60,24 @@ public class HeatAttributeManager {
             surfaceEnvTemperature-=((attitude-63)/100)*9.5;
 
             //叠加天气
-            if(rain)surfaceEnvTemperature-=biome.getDownfall()*biome.getTemperature()*7;
+            if (rain) surfaceEnvTemperature -= biome.getDownfall() * biome.getTemperature() * 7;
 
             //计算地下温度
-            double underEnvTemperature=temp;
-            if(attitude>63)underEnvTemperature-=((attitude-63)/100)*14.5;
-            if(attitude>0&&attitude<=63) underEnvTemperature= zeroYLayerTemperature +((underEnvTemperature- zeroYLayerTemperature)/63)*attitude;
-            if(attitude<=0) underEnvTemperature=-((bedRockLayerTemperature - zeroYLayerTemperature)/64)*attitude+ zeroYLayerTemperature;
+            double underEnvTemperature = temp;
+            if (attitude > 63) underEnvTemperature -= ((attitude - 63) / 100) * 14.5;
+            if (attitude > 0 && attitude <= 63)
+                underEnvTemperature = zeroYLayerTemperature + ((underEnvTemperature - zeroYLayerTemperature) / 63) * attitude;
+            if (attitude <= 0)
+                underEnvTemperature = -((bedRockLayerTemperature - zeroYLayerTemperature) / 64) * attitude + zeroYLayerTemperature;
 
             //根据skyLightLevel等级来加权平均以上两个温度
-            temp=((15-skyLightLevel)*underEnvTemperature+skyLightLevel*surfaceEnvTemperature)/15;
+            temp = ((15 - skyLightLevel) * underEnvTemperature + skyLightLevel * surfaceEnvTemperature) / 15;
+
+            //叠加水中状态
+            if (player.isTouchingWater()) temp *= 0.75;
+
+            //叠加岩浆中状态
+            if (player.isInLava()) temp += 312;
         }
         //地狱环境温度
         if(dim==World.NETHER){

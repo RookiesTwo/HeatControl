@@ -19,7 +19,7 @@ public class FrostNecklace extends TrinketItem {
             ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){
         var modifiers=super.getModifiers(stack,slot,entity,uuid);
         modifiers.put(
-                HeatAttributeManager.MAX_TEMPERATURE, new EntityAttributeModifier(uuid,"heatcontrol:max_temperature",100.0,EntityAttributeModifier.Operation.ADDITION));
+                HeatAttributeManager.MAX_TEMPERATURE, new EntityAttributeModifier(uuid, "heatcontrol:max_temperature", 376.0, EntityAttributeModifier.Operation.ADDITION));
         return modifiers;
     }
 }
