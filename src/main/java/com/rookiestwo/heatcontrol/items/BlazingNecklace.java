@@ -2,7 +2,6 @@ package com.rookiestwo.heatcontrol.items;
 
 import com.google.common.collect.Multimap;
 import com.rookiestwo.heatcontrol.tools.HeatAttributeManager;
-import com.rookiestwo.heatcontrol.tools.HeatControlConfig;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import net.minecraft.entity.LivingEntity;
