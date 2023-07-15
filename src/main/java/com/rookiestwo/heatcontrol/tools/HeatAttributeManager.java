@@ -36,7 +36,7 @@ public class HeatAttributeManager {
         boolean rain = player.getWorld().isRaining();
         double attitude = player.getPos().getY();
         double temp = BaseEnvTemperature;
-        int blockLightLevel=player.getWorld().getLightLevel(LightType.BLOCK,player.getBlockPos());
+        //int blockLightLevel=player.getWorld().getLightLevel(LightType.BLOCK,player.getBlockPos());
         int internalSkyLightLevel=player.getWorld().getLightLevel(LightType.SKY,player.getBlockPos())-player.getWorld().getAmbientDarkness();
         int skyLightLevel=player.getWorld().getLightLevel(LightType.SKY,player.getBlockPos());
 
@@ -80,10 +80,15 @@ public class HeatAttributeManager {
             if (player.isInLava()) temp += 312;
         }
         //地狱环境温度
-        if(dim==World.NETHER){
-            temp=netherBaseTemperature;
-            temp-=(attitude/100)*0.95;
+        if (dim == World.NETHER) {
+            temp = netherBaseTemperature;
+            temp -= (attitude / 100) * 0.95;
         }
         return temp;
+    }
+
+    //计算方块光照对于温度忍耐限度的影响
+    public static void applyBlockLightEffect(PlayerEntity player) {
+
     }
 }
