@@ -1,7 +1,7 @@
 {
-  "attribute.heatcontrol.env_temperature": "Environment Temperature(°C)",
-  "attribute.heatcontrol.max_temperature": "Maximum Tolerance Temperature(°C)",
-  "attribute.heatcontrol.min_temperature": "Minimum Tolerance Temperature(°C)",
+  "attribute.heatcontrol.player.env_temperature": "Environment Temperature(°C)",
+  "attribute.heatcontrol.player.max_temperature": "Maximum Tolerance Temperature(°C)",
+  "attribute.heatcontrol.player.min_temperature": "Minimum Tolerance Temperature(°C)",
   "item.heatcontrol.": "",
   "item.heatcontrol.blazing_necklace": "Blazing Necklace",
   "item.heatcontrol.blazing_vine": "Blazing Vine",
