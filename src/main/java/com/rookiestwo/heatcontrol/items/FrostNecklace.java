@@ -8,12 +8,17 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Rarity;
 
 import java.util.UUID;
 
 public class FrostNecklace extends TrinketItem {
     public FrostNecklace(Settings settings){
     super(settings);
+    }
+    @Override
+    public Rarity getRarity(ItemStack stack){
+        return Rarity.UNCOMMON;
     }
     public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(
             ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){
