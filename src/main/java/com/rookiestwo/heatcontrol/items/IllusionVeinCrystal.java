@@ -8,11 +8,20 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Rarity;
 
 import java.util.UUID;
 
 public class IllusionVeinCrystal extends TrinketItem {
     public IllusionVeinCrystal(Settings settings){super(settings);}
+    @Override
+    public Rarity getRarity(ItemStack stack){
+        return Rarity.EPIC;
+    }
+    @Override
+    public boolean hasGlint(ItemStack stack){
+        return true;
+    }
     public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(
             ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){
         var modifiers=super.getModifiers(stack,slot,entity,uuid);
