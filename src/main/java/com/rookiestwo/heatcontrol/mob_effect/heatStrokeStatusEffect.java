@@ -10,9 +10,10 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
-import java.util.UUID;
-
 public class heatStrokeStatusEffect extends StatusEffect {
+
+    private static final EntityAttributeModifier max_health_decrease=new EntityAttributeModifier("max_health_decreaser",-4.0, EntityAttributeModifier.Operation.ADDITION);
+    private static final EntityAttributeModifier movement_speed_decrease=new EntityAttributeModifier("movement_speed_decreaser",-0.2,EntityAttributeModifier.Operation.ADDITION);
     public heatStrokeStatusEffect() {
         super(StatusEffectCategory.HARMFUL, 0xB80000);
     }
@@ -29,7 +30,6 @@ public class heatStrokeStatusEffect extends StatusEffect {
                 if (!entity.world.isClient()) {
                     player.dropItem(entity.getMainHandStack(), false, false);
                     player.getInventory().setStack(player.getInventory().selectedSlot, ItemStack.EMPTY);
-
                     player.setOnFireFor(3);
                 }
             }
@@ -38,9 +38,18 @@ public class heatStrokeStatusEffect extends StatusEffect {
 
     @Override
     public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-        addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, UUID.randomUUID().toString(), -0.2, EntityAttributeModifier.Operation.MULTIPLY_BASE);
-        addAttributeModifier(EntityAttributes.GENERIC_MAX_HEALTH, UUID.randomUUID().toString(), -4.0, EntityAttributeModifier.Operation.ADDITION);
-        entity.damage(DamageSource.ON_FIRE, 4);
-        super.onApplied(entity, attributes, amplifier);
+        if(entity instanceof PlayerEntity player) {
+            player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).addTemporaryModifier(max_health_decrease);
+            player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addTemporaryModifier(movement_speed_decrease);
+            player.damage(DamageSource.ON_FIRE, 4);
+        }
+    }
+
+    @Override
+    public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier){
+        if(entity instanceof PlayerEntity player) {
+            player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).removeModifier(movement_speed_decrease);
+            player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).removeModifier(max_health_decrease);
+        }
     }
 }

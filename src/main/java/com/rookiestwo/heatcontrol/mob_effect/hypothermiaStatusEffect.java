@@ -12,10 +12,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import java.util.UUID;
 
 public class hypothermiaStatusEffect extends StatusEffect {
+
+    private static final EntityAttributeModifier movement_speed_decrease=new EntityAttributeModifier("movement_speed_decreaser",-0.6,EntityAttributeModifier.Operation.ADDITION);
     public hypothermiaStatusEffect() {
         super(StatusEffectCategory.HARMFUL, 0xCCFFFF);
     }
-
     @Override
     public boolean canApplyUpdateEffect(int duration, int amplifier) {
         int i = 25 >> amplifier;
@@ -35,7 +36,14 @@ public class hypothermiaStatusEffect extends StatusEffect {
 
     @Override
     public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-        addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, UUID.randomUUID().toString(), -0.6, EntityAttributeModifier.Operation.MULTIPLY_BASE);
-        super.onApplied(entity, attributes, amplifier);
+        if(entity instanceof PlayerEntity player) {
+            player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addTemporaryModifier(movement_speed_decrease);
+        }
+    }
+    @Override
+    public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier){
+        if(entity instanceof PlayerEntity player) {
+            player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).removeModifier(movement_speed_decrease);
+        }
     }
 }
