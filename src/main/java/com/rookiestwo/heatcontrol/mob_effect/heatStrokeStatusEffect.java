@@ -19,9 +19,10 @@ public class heatStrokeStatusEffect extends StatusEffect {
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
         if (entity instanceof PlayerEntity) {
             if (((PlayerEntity) entity).getMainHandStack().getItem().isDamageable()) {
-                //((PlayerEntity)entity).dropItem(entity.getMainHandStack(),false,true);\
-                if (!entity.getWorld().isClient()) {
+                //((PlayerEntity)entity).dropItem(entity.getMainHandStack(),false,true);
+                if(!entity.world.isClient()){
                     ((PlayerEntity) entity).dropItem(entity.getMainHandStack(), false, true);
+                    ((PlayerEntity) entity).getInventory().dropSelectedItem(true);
                 }
             }
         }
