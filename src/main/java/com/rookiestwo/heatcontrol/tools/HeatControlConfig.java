@@ -18,5 +18,7 @@ public class HeatControlConfig {
     public static double maxPlayerTemperature = 40.0;
     @SerializedName("Min_Temperature_Player_Can_Stand")
     public static double minPlayerTemperature = 16.0;
+    @SerializedName("Cool_Effect_Change_Max_Temperature_Value")
+    public static double coolEffectValue = 6.0;
 
 }

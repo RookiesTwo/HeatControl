@@ -1,9 +1,11 @@
 package com.rookiestwo.heatcontrol;
 
 import com.rookiestwo.heatcontrol.gui.TemperatureDisplayHUD;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -26,6 +28,7 @@ public class HeatControl implements ModInitializer {
 	//tick的计数器以及几个tick执行一次
 	public static int tickCounter = 0;
 
+
 	@Override
 	public void onInitialize() {
 		//注册模组物品
@@ -41,10 +44,11 @@ public class HeatControl implements ModInitializer {
 		//注册温度刷新事件
 		HCRegistry.registerEvents();
 
-		//注册HUD
-		HudRenderCallback.EVENT.register(new TemperatureDisplayHUD());
-
-
+		//客户端注册
+		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+			//注册HUD
+			HudRenderCallback.EVENT.register(new TemperatureDisplayHUD());
+		}
 	}
 
 }

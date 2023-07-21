@@ -2,6 +2,8 @@ package com.rookiestwo.heatcontrol;
 
 import com.rookiestwo.heatcontrol.items.*;
 import com.rookiestwo.heatcontrol.mob_effect.coolStatusEffect;
+import com.rookiestwo.heatcontrol.mob_effect.heatStrokeStatusEffect;
+import com.rookiestwo.heatcontrol.mob_effect.hypothermiaStatusEffect;
 import com.rookiestwo.heatcontrol.tools.HeatAttributeManager;
 import com.rookiestwo.heatcontrol.tools.HeatControlConfig;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -40,6 +42,8 @@ public class HCRegistry {
 
     //Effects
     public static final coolStatusEffect effect_cool = new coolStatusEffect();
+    public static final hypothermiaStatusEffect effect_hypothermia = new hypothermiaStatusEffect();
+    public static final heatStrokeStatusEffect effect_heat_stroke = new heatStrokeStatusEffect();
 
 
     public static void registerItems() {
@@ -64,6 +68,8 @@ public class HCRegistry {
 
     public static void registerEffects() {
         Registry.register(Registry.STATUS_EFFECT, new Identifier(HeatControl.MOD_ID, "cool"), effect_cool);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(HeatControl.MOD_ID, "hypothermia"), effect_hypothermia);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(HeatControl.MOD_ID, "heat_stroke"), effect_heat_stroke);
     }
 
     public static void registerEvents() {
