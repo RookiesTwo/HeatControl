@@ -14,5 +14,8 @@
   "item.heatcontrol.woolen_socks": "羊毛袜子",
   "item.heatcontrol.woolen_trousers": "羊毛裤子",
   "item.heatcontrol.woolen_underwear": "羊毛内衣",
-  "itemGroup.heatcontrol.hc_item_group": "热量控制"
+  "itemGroup.heatcontrol.hc_item_group": "热量控制",
+  "effect.heatcontrol.heat_stroke": "中暑",
+  "effect.heatcontrol.hypothermia": "失温",
+  "effect.heatcontrol.cool": "凉爽"
 }

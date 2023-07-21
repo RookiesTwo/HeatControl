@@ -14,5 +14,8 @@
   "item.heatcontrol.woolen_socks": "Woolen Socks",
   "item.heatcontrol.woolen_trousers": "Woolen Trousers",
   "item.heatcontrol.woolen_underwear": "Woolen Underwear",
-  "itemGroup.heatcontrol.hc_item_group": "Heat Control"
+  "itemGroup.heatcontrol.hc_item_group": "Heat Control",
+  "effect.heatcontrol.heat_stroke": "Heat Stroke",
+  "effect.heatcontrol.hypothermia": "Hypothermia",
+  "effect.heatcontrol.cool": "Cool"
 }

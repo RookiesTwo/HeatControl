@@ -33,6 +33,13 @@ public class heatStrokeStatusEffect extends StatusEffect {
                     player.setOnFireFor(3);
                 }
             }
+            if (!player.getAttributes().hasModifierForAttribute(EntityAttributes.GENERIC_MAX_HEALTH, MAX_HEALTH_DECREASE.getId())) {
+                player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).addTemporaryModifier(MAX_HEALTH_DECREASE);
+                player.damage(DamageSource.ON_FIRE, 4);
+            }
+            if (!player.getAttributes().hasModifierForAttribute(EntityAttributes.GENERIC_MOVEMENT_SPEED, MOVEMENT_SPEED_DECREASE.getId())) {
+                player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addTemporaryModifier(MOVEMENT_SPEED_DECREASE);
+            }
         }
     }
 
