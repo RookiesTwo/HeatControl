@@ -4,6 +4,7 @@ import com.rookiestwo.heatcontrol.items.*;
 import com.rookiestwo.heatcontrol.mob_effect.coolStatusEffect;
 import com.rookiestwo.heatcontrol.mob_effect.heatStrokeStatusEffect;
 import com.rookiestwo.heatcontrol.mob_effect.hypothermiaStatusEffect;
+import com.rookiestwo.heatcontrol.tools.AbnormalStateManager;
 import com.rookiestwo.heatcontrol.tools.HeatAttributeManager;
 import com.rookiestwo.heatcontrol.tools.HeatControlConfig;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -86,6 +87,11 @@ public class HCRegistry {
                         HeatAttributeManager.applyBlockLightEffect(player);
                     }
                 }
+            }
+
+            Iterable<ServerPlayerEntity> players = server.getPlayerManager().getPlayerList();
+            for (ServerPlayerEntity player : players) {
+                AbnormalStateManager.AbnormalStateTick(player, 1);
             }
         });
     }

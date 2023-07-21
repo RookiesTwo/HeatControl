@@ -26,7 +26,7 @@ public class hypothermiaStatusEffect extends StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-        entity.damage(DamageSource.FREEZE, 2.0f);
+        entity.damage(DamageSource.FREEZE, 1.5f);
         if (entity instanceof PlayerEntity player) {
             player.addExhaustion(0.005f * (float) (amplifier + 1));
 

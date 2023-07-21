@@ -50,5 +50,4 @@ public class HeatControl implements ModInitializer {
 			HudRenderCallback.EVENT.register(new TemperatureDisplayHUD());
 		}
 	}
-
 }
