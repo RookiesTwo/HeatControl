@@ -1,7 +1,7 @@
 package com.rookiestwo.heatcontrol.mixin;
 
 
-import com.rookiestwo.heatcontrol.HeatControl;
+import com.rookiestwo.heatcontrol.HCRegistry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,6 +17,6 @@ public class HeatControlMixin {
             at=@At("RETURN")
     )
     private static void addAttribute(final CallbackInfoReturnable<DefaultAttributeContainer.Builder> info){
-        info.getReturnValue().add(HeatControl.env_temperature).add(HeatControl.min_temperature).add(HeatControl.max_temperature);
+        info.getReturnValue().add(HCRegistry.ENV_TEMPERATURE).add(HCRegistry.MAX_TEMPERATURE).add(HCRegistry.MIN_TEMPERATURE);
     }
 }

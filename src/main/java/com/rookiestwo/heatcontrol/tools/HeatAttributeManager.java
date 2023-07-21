@@ -30,15 +30,7 @@ public class HeatAttributeManager {
     private static double perBlockLightTemperature_Min = -0.86;
 
 
-    public static final EntityAttribute ENV_ATTRIBUTE = new ClampedEntityAttribute(
-            "attribute.heatcontrol.player.env_temperature", BaseEnvTemperature, -273.16, 2048.0
-    ).setTracked(true);
-    public static final EntityAttribute MAX_TEMPERATURE = new ClampedEntityAttribute(
-            "attribute.heatcontrol.player.max_temperature", BaseMaxTemperature, -273.16, 2048.0
-    ).setTracked(true);
-    public static final EntityAttribute MIN_TEMPERATURE = new ClampedEntityAttribute(
-            "attribute.heatcontrol.player.min_temperature", BaseMinTemperature, -273.16, 2048.0
-    ).setTracked(true);
+
 
     //应用环境温度
     public static void applyEnvTemperature(PlayerEntity player) {

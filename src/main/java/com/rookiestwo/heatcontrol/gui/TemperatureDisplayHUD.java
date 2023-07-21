@@ -1,6 +1,7 @@
 package com.rookiestwo.heatcontrol.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.rookiestwo.heatcontrol.HCRegistry;
 import com.rookiestwo.heatcontrol.HeatControl;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -57,9 +58,9 @@ public class TemperatureDisplayHUD implements HudRenderCallback {
         //固定时间间隔刷新一次计量表指针的目标值
         targetFreshTimer+=tickDelta;
         if(targetFreshTimer>targetFreshTime) {
-            double max_temp = client.player.getAttributes().getValue(HeatControl.max_temperature);
-            double min_temp = client.player.getAttributes().getValue(HeatControl.min_temperature);
-            double env_temp = client.player.getAttributes().getValue(HeatControl.env_temperature);
+            double max_temp = client.player.getAttributes().getValue(HCRegistry.MAX_TEMPERATURE);
+            double min_temp = client.player.getAttributes().getValue(HCRegistry.MIN_TEMPERATURE);
+            double env_temp = client.player.getAttributes().getValue(HCRegistry.ENV_TEMPERATURE);
 
             if (env_temp <= max_temp && env_temp >= min_temp) {
                 targetY = (properHeatBarLength / (min_temp - max_temp)) * (env_temp - max_temp) + overHeatBarLength - 1;
