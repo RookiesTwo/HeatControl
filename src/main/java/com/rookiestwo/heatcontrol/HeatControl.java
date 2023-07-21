@@ -35,6 +35,9 @@ public class HeatControl implements ModInitializer {
 		//注册Attributes
 		HCRegistry.registerAttributes();
 
+		//注册Effects
+		HCRegistry.registerEffects();
+
 		//注册温度刷新事件
 		HCRegistry.registerEvents();
 

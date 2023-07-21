@@ -1,6 +1,7 @@
 package com.rookiestwo.heatcontrol;
 
 import com.rookiestwo.heatcontrol.items.*;
+import com.rookiestwo.heatcontrol.mob_effect.coolStatusEffect;
 import com.rookiestwo.heatcontrol.tools.HeatAttributeManager;
 import com.rookiestwo.heatcontrol.tools.HeatControlConfig;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -12,6 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class HCRegistry {
+    //Items
     public static final BlazingNecklace blazing_necklace = new BlazingNecklace(new FabricItemSettings().group(HeatControl.HC_ITEM_GROUP).maxCount(1));
     public static final BlazingVine blazing_vine = new BlazingVine(new FabricItemSettings().group(HeatControl.HC_ITEM_GROUP));
     public static final FrostSennit frost_sennit = new FrostSennit(new FabricItemSettings().group(HeatControl.HC_ITEM_GROUP));
@@ -36,6 +38,10 @@ public class HCRegistry {
     ).setTracked(true);
 
 
+    //Effects
+    public static final coolStatusEffect effect_cool = new coolStatusEffect();
+
+
     public static void registerItems() {
         Registry.register(Registry.ITEM, new Identifier(HeatControl.MOD_ID, "heat_control_icon"), heat_control_icon);
         Registry.register(Registry.ITEM, new Identifier(HeatControl.MOD_ID, "thermometer"), thermometer);
@@ -54,6 +60,10 @@ public class HCRegistry {
         Registry.register(Registry.ATTRIBUTE, new Identifier(HeatControl.MOD_ID, "env_temperature"), ENV_TEMPERATURE);
         Registry.register(Registry.ATTRIBUTE, new Identifier(HeatControl.MOD_ID, "max_temperature"), MAX_TEMPERATURE);
         Registry.register(Registry.ATTRIBUTE, new Identifier(HeatControl.MOD_ID, "min_temperature"), MIN_TEMPERATURE);
+    }
+
+    public static void registerEffects() {
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(HeatControl.MOD_ID, "cool"), effect_cool);
     }
 
     public static void registerEvents() {
