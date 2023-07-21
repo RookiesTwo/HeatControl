@@ -22,11 +22,7 @@ public class HeatControl implements ModInitializer {
 			() -> new ItemStack(HCRegistry.heat_control_icon)
 	);
 
-	//注册EntityAttribute
-	public static final EntityAttribute env_temperature = Registry.register(Registry.ATTRIBUTE, new Identifier(MOD_ID, "env_temperature"), HeatAttributeManager.ENV_ATTRIBUTE);
-	public static final EntityAttribute min_temperature = Registry.register(Registry.ATTRIBUTE, new Identifier(MOD_ID, "min_temperature"), HeatAttributeManager.MIN_TEMPERATURE);
-	public static final EntityAttribute max_temperature = Registry.register(Registry.ATTRIBUTE, new Identifier(MOD_ID, "max_temperature"), HeatAttributeManager.MAX_TEMPERATURE);
-	private final int ticksPerTask = 10;
+	public static final int ticksPerTask = 10;
 	//tick的计数器以及几个tick执行一次
 	public static int tickCounter = 0;
 

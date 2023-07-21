@@ -1,8 +1,6 @@
 package com.rookiestwo.heatcontrol.tools;
 
-import com.rookiestwo.heatcontrol.HeatControl;
-import net.minecraft.entity.attribute.ClampedEntityAttribute;
-import net.minecraft.entity.attribute.EntityAttribute;
+import com.rookiestwo.heatcontrol.HCRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.LightType;
@@ -34,17 +32,17 @@ public class HeatAttributeManager {
 
     //应用环境温度
     public static void applyEnvTemperature(PlayerEntity player) {
-        player.getAttributeInstance(HeatControl.env_temperature).setBaseValue(calculateTemperatureValue(player));
+        player.getAttributeInstance(HCRegistry.ENV_TEMPERATURE).setBaseValue(calculateTemperatureValue(player));
     }
 
     //应用方块光照对于温度忍耐限度的影响
     public static void applyBlockLightEffect(PlayerEntity player) {
         int blockLightLevel = player.getWorld().getLightLevel(LightType.BLOCK, player.getBlockPos());//方块光照等级
 
-        player.getAttributeInstance(HeatControl.max_temperature).setBaseValue(
+        player.getAttributeInstance(HCRegistry.MAX_TEMPERATURE).setBaseValue(
                 BaseMaxTemperature + blockLightLevel * perBlockLightTemperature_Max
         );
-        player.getAttributeInstance(HeatControl.min_temperature).setBaseValue(
+        player.getAttributeInstance(HCRegistry.MIN_TEMPERATURE).setBaseValue(
                 BaseMinTemperature + blockLightLevel * perBlockLightTemperature_Min
         );
     }

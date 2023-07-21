@@ -25,7 +25,7 @@ public class BlazingNecklace extends TrinketItem {
             ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){
         var modifiers=super.getModifiers(stack,slot,entity,uuid);
         modifiers.put(
-                HeatAttributeManager.MIN_TEMPERATURE, new EntityAttributeModifier(uuid,"heatcontrol:min_temperature",-273.16,EntityAttributeModifier.Operation.ADDITION));
+                HCRegistry.MIN_TEMPERATURE, new EntityAttributeModifier(uuid, "heatcontrol:min_temperature", -273.16, EntityAttributeModifier.Operation.ADDITION));
         return modifiers;
     }
 }

@@ -1,5 +1,6 @@
 package com.rookiestwo.heatcontrol.items;
 
+import com.rookiestwo.heatcontrol.HCRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -8,8 +9,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-import com.rookiestwo.heatcontrol.HeatControl;
-import java.text.DecimalFormat;
 
 public class Thermometer extends Item {
     public Thermometer(Settings settings){
@@ -21,7 +20,7 @@ public class Thermometer extends Item {
     public TypedActionResult<ItemStack>use(World world, PlayerEntity playerEntity, Hand hand){
         if(!world.isClient()){
             //输出调制后的小数
-            Text message = new LiteralText(String.format("%.1f",playerEntity.getAttributes().getValue(HeatControl.env_temperature))+" °C");
+            Text message = new LiteralText(String.format("%.1f", playerEntity.getAttributes().getValue(HCRegistry.ENV_TEMPERATURE)) + " °C");
             playerEntity.sendMessage(message,true);
         }
         return TypedActionResult.success(playerEntity.getStackInHand(hand));
