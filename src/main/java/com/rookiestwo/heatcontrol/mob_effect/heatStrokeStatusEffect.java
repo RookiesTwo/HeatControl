@@ -12,8 +12,9 @@ import net.minecraft.item.ItemStack;
 
 public class heatStrokeStatusEffect extends StatusEffect {
 
-    private static final EntityAttributeModifier max_health_decrease=new EntityAttributeModifier("max_health_decreaser",-4.0, EntityAttributeModifier.Operation.ADDITION);
-    private static final EntityAttributeModifier movement_speed_decrease=new EntityAttributeModifier("movement_speed_decreaser",-0.2,EntityAttributeModifier.Operation.ADDITION);
+    private static final EntityAttributeModifier MAX_HEALTH_DECREASE = new EntityAttributeModifier("max_health_decrease", -4.0, EntityAttributeModifier.Operation.ADDITION);
+    private static final EntityAttributeModifier MOVEMENT_SPEED_DECREASE = new EntityAttributeModifier("movement_speed_decrease", -0.2, EntityAttributeModifier.Operation.MULTIPLY_BASE);
+
     public heatStrokeStatusEffect() {
         super(StatusEffectCategory.HARMFUL, 0xB80000);
     }
@@ -46,8 +47,8 @@ public class heatStrokeStatusEffect extends StatusEffect {
     @Override
     public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
         if(entity instanceof PlayerEntity player) {
-            player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).addTemporaryModifier(max_health_decrease);
-            player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addTemporaryModifier(movement_speed_decrease);
+            player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).addTemporaryModifier(MAX_HEALTH_DECREASE);
+            player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addTemporaryModifier(MOVEMENT_SPEED_DECREASE);
             player.damage(DamageSource.ON_FIRE, 4);
         }
     }
@@ -55,8 +56,8 @@ public class heatStrokeStatusEffect extends StatusEffect {
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier){
         if(entity instanceof PlayerEntity player) {
-            player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).removeModifier(movement_speed_decrease);
-            player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).removeModifier(max_health_decrease);
+            player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).removeModifier(MOVEMENT_SPEED_DECREASE);
+            player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).removeModifier(MAX_HEALTH_DECREASE);
         }
     }
 }

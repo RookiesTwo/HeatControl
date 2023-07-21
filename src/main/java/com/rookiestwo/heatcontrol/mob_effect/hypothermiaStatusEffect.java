@@ -9,11 +9,9 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.player.PlayerEntity;
 
-import java.util.UUID;
-
 public class hypothermiaStatusEffect extends StatusEffect {
 
-    private static final EntityAttributeModifier movement_speed_decrease=new EntityAttributeModifier("movement_speed_decreaser",-0.6,EntityAttributeModifier.Operation.ADDITION);
+    private static final EntityAttributeModifier MOVEMENT_SPEED_DECREASE = new EntityAttributeModifier("movement_speed_decrease", -0.6, EntityAttributeModifier.Operation.MULTIPLY_BASE);
     public hypothermiaStatusEffect() {
         super(StatusEffectCategory.HARMFUL, 0xCCFFFF);
     }
@@ -41,13 +39,13 @@ public class hypothermiaStatusEffect extends StatusEffect {
     @Override
     public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
         if(entity instanceof PlayerEntity player) {
-            player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addTemporaryModifier(movement_speed_decrease);
+            player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addTemporaryModifier(MOVEMENT_SPEED_DECREASE);
         }
     }
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier){
         if(entity instanceof PlayerEntity player) {
-            player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).removeModifier(movement_speed_decrease);
+            player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).removeModifier(MOVEMENT_SPEED_DECREASE);
         }
     }
 }
