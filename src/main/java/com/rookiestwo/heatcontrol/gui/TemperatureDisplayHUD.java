@@ -11,18 +11,21 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
+import java.lang.Math;
 
 @Environment(EnvType.CLIENT)
 public class TemperatureDisplayHUD implements HudRenderCallback {
+
     private static final Identifier  VERTICAL_TEMPERATURE_DISPLAY = new Identifier(HeatControl.MOD_ID,
             "textures/gui/thermometer_vertical.png");
+    private static final Identifier POWDER_SNOW_OUTLINE = new Identifier("minecraft","textures/misc/powder_snow_outline.png");
+
     private static double targetY=0;
 
     private static float targetFreshTimer=0;
 
     private static float pointerFreshTimer=0;
-
-    //private static double CursorMovingSpeedPerTick=0.333;
 
     private static double currentY = 0;
 
@@ -30,23 +33,31 @@ public class TemperatureDisplayHUD implements HudRenderCallback {
 
     private static float pointerFreshTime = 0.8F;
 
-    //    public void setTargetY(double input){
-//        targetY=input;
-//    }
     private static int overHeatBarLength = 12;
 
     private static int properHeatBarLength = 14;
 
+    private static final MinecraftClient client = MinecraftClient.getInstance();
+
+    private double max_temp;
+    private double min_temp;
+    private double env_temp;
+
+    private float abnormalStateTicker=0.0f;
+
     @Override
     public void onHudRender(MatrixStack Matrixstack, float tickDelta) {
-        MinecraftClient client = MinecraftClient.getInstance();
+        max_temp = client.player.getAttributes().getValue(HCRegistry.MAX_TEMPERATURE);
+        min_temp = client.player.getAttributes().getValue(HCRegistry.MIN_TEMPERATURE);
+        env_temp = client.player.getAttributes().getValue(HCRegistry.ENV_TEMPERATURE);
+
         //若为创造或观察者就不渲染
         if (client.player != null && (client.player.isCreative() || client.player.isSpectator())) {
             return;
         }
 
         int width = client.getWindow().getScaledWidth();
-        int height=client.getWindow().getScaledHeight();
+        int height = client.getWindow().getScaledHeight();
 
         int x=width/2+93;
         int y=height-39;
@@ -58,10 +69,6 @@ public class TemperatureDisplayHUD implements HudRenderCallback {
         //固定时间间隔刷新一次计量表指针的目标值
         targetFreshTimer+=tickDelta;
         if(targetFreshTimer>targetFreshTime) {
-            double max_temp = client.player.getAttributes().getValue(HCRegistry.MAX_TEMPERATURE);
-            double min_temp = client.player.getAttributes().getValue(HCRegistry.MIN_TEMPERATURE);
-            double env_temp = client.player.getAttributes().getValue(HCRegistry.ENV_TEMPERATURE);
-
             if (env_temp <= max_temp && env_temp >= min_temp) {
                 targetY = (properHeatBarLength / (min_temp - max_temp)) * (env_temp - max_temp) + overHeatBarLength - 1;
             }
@@ -93,7 +100,25 @@ public class TemperatureDisplayHUD implements HudRenderCallback {
         //渲染温度指针
         DrawableHelper.drawTexture(Matrixstack,x-1,y+(int)currentY,5,0,7,3,256,256);
 
-        //HeatControl.LOGGER.info("HUD Draw!");
+        //每tick都进行一次判断并渲染屏幕效果
+        if(env_temp>max_temp){
+            abnormalStateTicker+=tickDelta;
+            if(abnormalStateTicker<=150)abnormalStateTicker=150;
+            OverlayRenderer.renderOverlay(POWDER_SNOW_OUTLINE,Math.abs(abnormalStateTicker)/150,width,height);
+        }
+        if(env_temp>=min_temp&&env_temp<=max_temp){
+            if(abnormalStateTicker<0&&Math.abs(abnormalStateTicker)>1)
+                abnormalStateTicker+=tickDelta;
+            if(abnormalStateTicker>0&&Math.abs(abnormalStateTicker)>1)
+                abnormalStateTicker-=tickDelta;
+        }
+        if(env_temp<min_temp){
+            abnormalStateTicker-=tickDelta;
+            if(abnormalStateTicker>=-150)abnormalStateTicker=-150;
+            OverlayRenderer.renderOverlay(POWDER_SNOW_OUTLINE,Math.abs(abnormalStateTicker)/150,width,height);
+        }
+        HeatControl.LOGGER.info("abnormalStateTicker:"+String.valueOf(abnormalStateTicker));
+
     }
 
 }
