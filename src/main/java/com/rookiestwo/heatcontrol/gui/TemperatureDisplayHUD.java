@@ -21,6 +21,8 @@ public class TemperatureDisplayHUD implements HudRenderCallback {
             "textures/gui/thermometer_vertical.png");
     private static final Identifier POWDER_SNOW_OUTLINE = new Identifier("minecraft","textures/misc/powder_snow_outline.png");
 
+    private static final Identifier HEAT_STOKE_OUTLINE = new Identifier(HeatControl.MOD_ID,"textures/misc/heat_stroke_outline.png");
+
     private static double targetY=0;
 
     private static float targetFreshTimer=0;
@@ -43,7 +45,7 @@ public class TemperatureDisplayHUD implements HudRenderCallback {
     private double min_temp;
     private double env_temp;
 
-    private float abnormalStateTicker=0.0f;
+    private static float abnormalStateTicker=0.0f;
 
     @Override
     public void onHudRender(MatrixStack Matrixstack, float tickDelta) {
@@ -101,24 +103,34 @@ public class TemperatureDisplayHUD implements HudRenderCallback {
         DrawableHelper.drawTexture(Matrixstack,x-1,y+(int)currentY,5,0,7,3,256,256);
 
         //每tick都进行一次判断并渲染屏幕效果
-        if(env_temp>max_temp){
-            abnormalStateTicker+=tickDelta;
-            if(abnormalStateTicker<=150)abnormalStateTicker=150;
-            OverlayRenderer.renderOverlay(POWDER_SNOW_OUTLINE,Math.abs(abnormalStateTicker)/150,width,height);
+        if(!client.isPaused()) {
+            if (env_temp > max_temp) {
+                abnormalStateTicker += tickDelta;
+                if (abnormalStateTicker >= 250) abnormalStateTicker = 250;
+            }
+            if (env_temp >= min_temp && env_temp <= max_temp) {
+                if (abnormalStateTicker < 0 && Math.abs(abnormalStateTicker) > 1)
+                    abnormalStateTicker += tickDelta;
+                if (abnormalStateTicker > 0 && Math.abs(abnormalStateTicker) > 1)
+                    abnormalStateTicker -= tickDelta;
+            }
+            if (env_temp < min_temp) {
+                abnormalStateTicker -= tickDelta;
+                if (abnormalStateTicker <= -250) abnormalStateTicker = -250;
+            }
+
+            HeatControl.LOGGER.info("abnormalStateTicker:"+String.valueOf(abnormalStateTicker));
         }
-        if(env_temp>=min_temp&&env_temp<=max_temp){
-            if(abnormalStateTicker<0&&Math.abs(abnormalStateTicker)>1)
-                abnormalStateTicker+=tickDelta;
-            if(abnormalStateTicker>0&&Math.abs(abnormalStateTicker)>1)
-                abnormalStateTicker-=tickDelta;
-        }
-        if(env_temp<min_temp){
-            abnormalStateTicker-=tickDelta;
-            if(abnormalStateTicker>=-150)abnormalStateTicker=-150;
-            OverlayRenderer.renderOverlay(POWDER_SNOW_OUTLINE,Math.abs(abnormalStateTicker)/150,width,height);
-        }
-        HeatControl.LOGGER.info("abnormalStateTicker:"+String.valueOf(abnormalStateTicker));
 
     }
-
+    public static void renderAbnormalStateOverlay(){
+        int width = client.getWindow().getScaledWidth();
+        int height = client.getWindow().getScaledHeight();
+        if(abnormalStateTicker>100){
+            OverlayRenderer.renderOverlay(HEAT_STOKE_OUTLINE,(Math.abs(abnormalStateTicker)-100)/151,width,height);
+        }
+        if(abnormalStateTicker<-100){
+            OverlayRenderer.renderOverlay(POWDER_SNOW_OUTLINE,(Math.abs(abnormalStateTicker)-100)/151,width,height);
+        }
+    }
 }

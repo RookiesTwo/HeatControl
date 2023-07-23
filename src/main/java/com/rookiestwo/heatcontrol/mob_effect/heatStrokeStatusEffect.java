@@ -34,6 +34,7 @@ public class heatStrokeStatusEffect extends StatusEffect {
                     player.setOnFireFor(3);
                 }
             }
+
             if (!player.getAttributes().hasModifierForAttribute(EntityAttributes.GENERIC_MAX_HEALTH, MAX_HEALTH_DECREASE.getId())) {
                 player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).addTemporaryModifier(MAX_HEALTH_DECREASE);
                 player.damage(DamageSource.ON_FIRE, 4);
@@ -49,8 +50,8 @@ public class heatStrokeStatusEffect extends StatusEffect {
         if(entity instanceof PlayerEntity player) {
             player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).addTemporaryModifier(MAX_HEALTH_DECREASE);
             player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addTemporaryModifier(MOVEMENT_SPEED_DECREASE);
-            if(player.getHealth()>player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getValue())
-                player.damage(DamageSource.ON_FIRE, 4);
+            if(player.getHealth()>player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).getValue())
+                player.damage(DamageSource.OUT_OF_WORLD, 4);
         }
     }
 
