@@ -6,5 +6,4 @@ public class BlazingVine extends Item {
     public BlazingVine(Settings settings) {
         super(settings);
     }
-
 }
