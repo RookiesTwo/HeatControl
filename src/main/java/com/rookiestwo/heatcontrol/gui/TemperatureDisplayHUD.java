@@ -17,8 +17,7 @@ import java.lang.Math;
 @Environment(EnvType.CLIENT)
 public class TemperatureDisplayHUD implements HudRenderCallback {
 
-    private static final Identifier  VERTICAL_TEMPERATURE_DISPLAY = new Identifier(HeatControl.MOD_ID,
-            "textures/gui/thermometer_vertical.png");
+    private static final Identifier  VERTICAL_TEMPERATURE_DISPLAY = new Identifier(HeatControl.MOD_ID, "textures/gui/thermometer_vertical.png");
     private static final Identifier POWDER_SNOW_OUTLINE = new Identifier("minecraft","textures/misc/powder_snow_outline.png");
 
     private static final Identifier HEAT_STOKE_OUTLINE = new Identifier(HeatControl.MOD_ID,"textures/misc/heat_stroke_outline.png");
@@ -53,7 +52,7 @@ public class TemperatureDisplayHUD implements HudRenderCallback {
         min_temp = client.player.getAttributes().getValue(HCRegistry.MIN_TEMPERATURE);
         env_temp = client.player.getAttributes().getValue(HCRegistry.ENV_TEMPERATURE);
 
-        //若为创造或观察者就不渲染
+        //若为创造或观察者就跳过后边所有内容
         if (client.player != null && (client.player.isCreative() || client.player.isSpectator())) {
             return;
         }
@@ -69,23 +68,25 @@ public class TemperatureDisplayHUD implements HudRenderCallback {
         RenderSystem.setShaderTexture(0,VERTICAL_TEMPERATURE_DISPLAY);
 
         //固定时间间隔刷新一次计量表指针的目标值
-        targetFreshTimer+=tickDelta;
-        if(targetFreshTimer>targetFreshTime) {
-            if (env_temp <= max_temp && env_temp >= min_temp) {
-                targetY = (properHeatBarLength / (min_temp - max_temp)) * (env_temp - max_temp) + overHeatBarLength - 1;
-            }
-            //为了让提示更明显 超过适合温度范围的显示分开处理
-            if (env_temp > max_temp) {
-                targetY = overHeatBarLength - (int) ((env_temp - max_temp) * 1.5) - 1;
-            }
-            if (env_temp < min_temp) {
-                targetY = overHeatBarLength + properHeatBarLength + (int) ((min_temp - env_temp) * 1.5) - 1;
-            }
+        if(!client.isPaused()) {
+            targetFreshTimer += tickDelta;
+            if (targetFreshTimer > targetFreshTime) {
+                if (env_temp <= max_temp && env_temp >= min_temp) {
+                    targetY = (properHeatBarLength / (min_temp - max_temp)) * (env_temp - max_temp) + overHeatBarLength - 1;
+                }
+                //为了让提示更明显 超过适合温度范围的显示分开处理
+                if (env_temp > max_temp) {
+                    targetY = overHeatBarLength - (int) ((env_temp - max_temp) * 1.5) - 1;
+                }
+                if (env_temp < min_temp) {
+                    targetY = overHeatBarLength + properHeatBarLength + (int) ((min_temp - env_temp) * 1.5) - 1;
+                }
 
-            if (targetY < 2) targetY = 2;
-            if (targetY > 33) targetY = 33;
+                if (targetY < 2) targetY = 2;
+                if (targetY > 33) targetY = 33;
 
-            targetFreshTimer = 0;
+                targetFreshTimer = 0;
+            }
         }
 
         //固定时间间隔将HUD量表指针移动一个像素点（指针移动速度控制）
@@ -102,28 +103,29 @@ public class TemperatureDisplayHUD implements HudRenderCallback {
         //渲染温度指针
         DrawableHelper.drawTexture(Matrixstack,x-1,y+(int)currentY,5,0,7,3,256,256);
 
-        //每tick都进行一次判断并渲染屏幕效果
+        //每tick都判断一次屏幕效果
         if(!client.isPaused()) {
-            if (env_temp > max_temp) {
-                abnormalStateTicker += tickDelta;
-                if (abnormalStateTicker >= 250) abnormalStateTicker = 250;
+            if(!(client.player.getFrozenTicks()>0)){
+                if (env_temp > max_temp) {
+                    abnormalStateTicker += tickDelta;
+                    if (abnormalStateTicker >= 250) abnormalStateTicker = 250;
+                }
+
+                if (env_temp < min_temp) {
+                    abnormalStateTicker -= tickDelta;
+                    if (abnormalStateTicker <= -250) abnormalStateTicker = -250;
+                }
             }
-            if (env_temp >= min_temp && env_temp <= max_temp) {
+            if ((env_temp >= min_temp && env_temp <= max_temp)||client.player.getFrozenTicks()>0) {
                 if (abnormalStateTicker < 0 && Math.abs(abnormalStateTicker) > 1)
                     abnormalStateTicker += tickDelta;
                 if (abnormalStateTicker > 0 && Math.abs(abnormalStateTicker) > 1)
                     abnormalStateTicker -= tickDelta;
             }
-            if (env_temp < min_temp) {
-                abnormalStateTicker -= tickDelta;
-                if (abnormalStateTicker <= -250) abnormalStateTicker = -250;
-            }
-
-            HeatControl.LOGGER.info("abnormalStateTicker:"+String.valueOf(abnormalStateTicker));
         }
-
     }
     public static void renderAbnormalStateOverlay(){
+        if(client.player.isCreative()||client.player.isSpectator())return;
         int width = client.getWindow().getScaledWidth();
         int height = client.getWindow().getScaledHeight();
         if(abnormalStateTicker>100){

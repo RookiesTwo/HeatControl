@@ -18,14 +18,16 @@ public class AbnormalStateManager {
     public static void AbnormalStateTick(PlayerEntity player, int deltaTicks) {
         if (!playerTimer.containsKey(player.getUuid())) {
             initializePlayer(player);
-            //HeatControl.LOGGER.info("player added!");
         }
-
+        if(player.isSpectator()||player.isCreative()){
+            return;
+        }
         //获取必须值
         double env_temperature = player.getAttributeInstance(HCRegistry.ENV_TEMPERATURE).getValue();
         double max_temperature = player.getAttributeInstance(HCRegistry.MAX_TEMPERATURE).getValue();
         double min_temperature = player.getAttributeInstance(HCRegistry.MIN_TEMPERATURE).getValue();
         int i = playerTimer.get(player.getUuid());
+
         if (i >= 150 && !player.hasStatusEffect(HCRegistry.effect_heat_stroke))
             player.addStatusEffect(new StatusEffectInstance(HCRegistry.effect_heat_stroke, 60));
         if (i <= -150 && !player.hasStatusEffect(HCRegistry.effect_hypothermia))
