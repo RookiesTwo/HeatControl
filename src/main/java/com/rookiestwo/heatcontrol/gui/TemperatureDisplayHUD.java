@@ -108,12 +108,12 @@ public class TemperatureDisplayHUD implements HudRenderCallback {
             if(!(client.player.getFrozenTicks()>0)){
                 if (env_temp > max_temp) {
                     abnormalStateTicker += tickDelta;
-                    if (abnormalStateTicker >= 250) abnormalStateTicker = 250;
+                    if (abnormalStateTicker >= 175) abnormalStateTicker = 175;
                 }
 
                 if (env_temp < min_temp) {
                     abnormalStateTicker -= tickDelta;
-                    if (abnormalStateTicker <= -250) abnormalStateTicker = -250;
+                    if (abnormalStateTicker <= -175) abnormalStateTicker = -175;
                 }
             }
             if ((env_temp >= min_temp && env_temp <= max_temp)||client.player.getFrozenTicks()>0) {
@@ -128,11 +128,11 @@ public class TemperatureDisplayHUD implements HudRenderCallback {
         if(client.player.isCreative()||client.player.isSpectator())return;
         int width = client.getWindow().getScaledWidth();
         int height = client.getWindow().getScaledHeight();
-        if(abnormalStateTicker>100){
-            OverlayRenderer.renderOverlay(HEAT_STOKE_OUTLINE,(Math.abs(abnormalStateTicker)-100)/151,width,height);
+        if(abnormalStateTicker>25){
+            OverlayRenderer.renderOverlay(HEAT_STOKE_OUTLINE,(Math.abs(abnormalStateTicker)-25)/151,width,height);
         }
-        if(abnormalStateTicker<-100){
-            OverlayRenderer.renderOverlay(POWDER_SNOW_OUTLINE,(Math.abs(abnormalStateTicker)-100)/151,width,height);
+        if(abnormalStateTicker<-25){
+            OverlayRenderer.renderOverlay(POWDER_SNOW_OUTLINE,(Math.abs(abnormalStateTicker)-25)/151,width,height);
         }
     }
 }
