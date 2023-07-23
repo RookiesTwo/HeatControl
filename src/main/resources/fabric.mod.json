@@ -16,7 +16,7 @@
   },
 
   "license": "MIT",
-  "icon": "assets/HeatControl/icon.png",
+  "icon": "assets/heatcontrol/icon.png",
 
   "environment": "*",
   "entrypoints": {

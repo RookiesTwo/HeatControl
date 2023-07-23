@@ -25,7 +25,7 @@ public class HeatAttributeManager {
     private static double perBlockLightTemperature_Max = -0.3;
 
     //必须为负数
-    private static double perBlockLightTemperature_Min = -0.86;
+    private static double perBlockLightTemperature_Min = -4.2;
 
 
 
