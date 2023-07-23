@@ -16,7 +16,7 @@ public class heatStrokeStatusEffect extends StatusEffect {
     private static final EntityAttributeModifier MOVEMENT_SPEED_DECREASE = new EntityAttributeModifier("movement_speed_decrease", -0.2, EntityAttributeModifier.Operation.MULTIPLY_BASE);
 
     public heatStrokeStatusEffect() {
-        super(StatusEffectCategory.HARMFUL, 0xB80000);
+        super(StatusEffectCategory.HARMFUL, 0xf15536);
     }
 
     @Override

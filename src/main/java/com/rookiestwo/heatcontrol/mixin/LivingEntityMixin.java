@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(LivingEntity.class)
-public class HeatControlMixin {
+public class LivingEntityMixin {
     @Inject(
             method = "createLivingAttributes()Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;",
             at=@At("RETURN")

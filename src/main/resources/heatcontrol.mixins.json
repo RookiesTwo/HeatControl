@@ -4,7 +4,8 @@
   "package": "com.rookiestwo.heatcontrol.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "HeatControlMixin"
+    "LivingEntityMixin",
+    "PotionMixin"
   ],
   "client": [
     "HeatControlClientMixin"
