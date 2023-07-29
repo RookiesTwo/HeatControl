@@ -48,9 +48,11 @@ public class heatStrokeStatusEffect extends StatusEffect {
     @Override
     public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
         if(entity instanceof PlayerEntity player) {
-            player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).addTemporaryModifier(MAX_HEALTH_DECREASE);
-            player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addTemporaryModifier(MOVEMENT_SPEED_DECREASE);
-            if(player.getHealth()>player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).getValue())
+            if (!player.getAttributes().hasModifierForAttribute(EntityAttributes.GENERIC_MAX_HEALTH, MAX_HEALTH_DECREASE.getId()))
+                player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).addTemporaryModifier(MAX_HEALTH_DECREASE);
+            if (!player.getAttributes().hasModifierForAttribute(EntityAttributes.GENERIC_MOVEMENT_SPEED, MOVEMENT_SPEED_DECREASE.getId()))
+                player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addTemporaryModifier(MOVEMENT_SPEED_DECREASE);
+            if (player.getHealth() > player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).getValue())
                 player.damage(DamageSource.OUT_OF_WORLD, 4);
         }
     }
@@ -58,8 +60,10 @@ public class heatStrokeStatusEffect extends StatusEffect {
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier){
         if(entity instanceof PlayerEntity player) {
-            player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).removeModifier(MOVEMENT_SPEED_DECREASE);
-            player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).removeModifier(MAX_HEALTH_DECREASE);
+            if (player.getAttributes().hasModifierForAttribute(EntityAttributes.GENERIC_MOVEMENT_SPEED, MOVEMENT_SPEED_DECREASE.getId()))
+                player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).removeModifier(MOVEMENT_SPEED_DECREASE);
+            if (player.getAttributes().hasModifierForAttribute(EntityAttributes.GENERIC_MAX_HEALTH, MAX_HEALTH_DECREASE.getId()))
+                player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).removeModifier(MAX_HEALTH_DECREASE);
         }
     }
 }

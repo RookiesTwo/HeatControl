@@ -5,14 +5,9 @@ import com.rookiestwo.heatcontrol.tools.HeatControlConfig;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-
-import java.util.UUID;
 
 public class coolStatusEffect extends StatusEffect {
     private static final EntityAttributeModifier MAX_TEMPERATURE_UPPER = new EntityAttributeModifier("max_temperature_upper", HeatControlConfig.coolEffectValue, EntityAttributeModifier.Operation.ADDITION);
@@ -36,14 +31,16 @@ public class coolStatusEffect extends StatusEffect {
     @Override
     public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
         if(entity instanceof PlayerEntity player) {
-            player.getAttributeInstance(HCRegistry.MAX_TEMPERATURE).addTemporaryModifier(MAX_TEMPERATURE_UPPER);
+            if (!player.getAttributes().hasModifierForAttribute(HCRegistry.MAX_TEMPERATURE, MAX_TEMPERATURE_UPPER.getId()))
+                player.getAttributeInstance(HCRegistry.MAX_TEMPERATURE).addTemporaryModifier(MAX_TEMPERATURE_UPPER);
         }
     }
 
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier){
         if(entity instanceof PlayerEntity player) {
-            player.getAttributeInstance(HCRegistry.MAX_TEMPERATURE).removeModifier(MAX_TEMPERATURE_UPPER);
+            if (player.getAttributes().hasModifierForAttribute(HCRegistry.MAX_TEMPERATURE, MAX_TEMPERATURE_UPPER.getId()))
+                player.getAttributeInstance(HCRegistry.MAX_TEMPERATURE).removeModifier(MAX_TEMPERATURE_UPPER);
         }
     }
 }
